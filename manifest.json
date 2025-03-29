@@ -6,5 +6,11 @@
     "action": {
         "default_popup": "index.html",
         "default_icon": "images/eye-solid.svg"
+    },
+    "permissions": [
+        "activeTab"
+    ],
+    "background": {
+        "service_worker": "scripts/background.js"
     }
 }
