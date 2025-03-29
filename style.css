@@ -3,5 +3,6 @@
 }
 
 .allow{
-    back
+    background-color: blue;
+    color: white;
 }
