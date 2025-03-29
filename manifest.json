@@ -1,0 +1,10 @@
+{
+    "name": "Projeto Integrador",
+    "description": "Extensão para monitoramento de atenção em aulas remotas",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "images/eye-solid.svg"
+    }
+}
