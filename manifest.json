@@ -6,5 +6,16 @@
     "action": {
         "default_popup": "index.html",
         "default_icon": "images/eye-solid.svg"
-    }
+    },
+    "permissions": [
+        "activeTab",
+        "nativeMessaging"
+    ],
+    "background": {
+        "service_worker": "scripts/background.js"
+    },
+    "host_permissions": [
+        "http://*/*",
+        "https://*/*"
+    ]
 }
