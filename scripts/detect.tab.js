@@ -1,13 +1,9 @@
-document.getElementById("allow").addEventListener("click", async () => {
-    console.log("Button clicked! Sending message to background script.");
+let button = document.getElementById("allow");
+let tab = "chrome"
 
-    chrome.runtime.sendMessage({ action: "getActiveTab" }, (response) => {
-        if (chrome.runtime.lastError) {
-            console.error("Error:", chrome.runtime.lastError);
-        } else if (response) {
-            console.log("Active Tab:", response.tab);
-        } else {
-            console.warn("No response received.");
-        }
+button.addEventListener("click", () =>{
+    chrome.runtime.sendMessage({
+        type: "console",
+        tab: tab
     });
-});
+})
