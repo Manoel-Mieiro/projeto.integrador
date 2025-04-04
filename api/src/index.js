@@ -1,17 +1,33 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import router from './routes/routes.js';
+import dotenv from 'dotenv';
+import db from './db.js';
+
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(express.json());
+app.use(bodyParser.json());
 
-// Routes
-app.get('/', (req, res) => {
-    res.send('Welcome to the API!');
-});
+app.use('/', router);
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+const startServer = async () => {
+    try {
+        await db.ConnectToDatabase();
+        console.log('Connected to database successfully!');
+        app.listen(PORT, () => {
+            console.log(`Server is running on http://localhost:${PORT}`);
+        });
+
+    } catch (error) {
+        console.error('Error connecting to the database:', error);
+    }
+}
+
+startServer();
+
+
+
