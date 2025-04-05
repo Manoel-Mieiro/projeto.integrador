@@ -2,8 +2,7 @@
 
 ![Logo](https://github.com/user-attachments/assets/d86acded-a26a-4dd2-a70e-1b09ac26ec8b)
 
-ESPEON is a project aimed at detecting student's disturbance during online classes. It's a browser extension built mostly with Node.js, supported by MongoDB.
-
+ESPEON is a project aimed at detecting students' disturbances during online classes. It's a browser extension built mostly with Node.js, supported by MongoDB.
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
