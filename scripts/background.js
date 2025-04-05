@@ -11,5 +11,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         } else {
             console.error("request.tab is not an array");
         }
+    } else if (request.type === "tabData") {
+        console.log("Payload recebido do popup:", request.payload)
     }
 });
