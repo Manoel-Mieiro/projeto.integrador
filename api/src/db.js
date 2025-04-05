@@ -14,7 +14,7 @@ async function ConnectToDatabase() {
             db = client.db(process.env.DB_NAME)
             console.log("Connected to database:", process.env.DB_NAME);
         } catch (error) {
-            console.error("Conncetion failed", error)
+            console.error("Connection failed", error)
         }
     }
     return db;
