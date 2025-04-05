@@ -9,4 +9,14 @@ async function FindAllDemo() {
     }
 }
 
-export default { FindAllDemo }
+async function CreateDemo(data) {
+    try {
+        console.log("Creating demo:", data);
+        await demoRepo.CreateDemo(data);
+    } catch (error) {
+        console.log("Error in CreateDemo:", error);
+        return;
+    }
+}
+
+export default { FindAllDemo, CreateDemo }

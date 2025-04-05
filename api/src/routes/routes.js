@@ -1,8 +1,9 @@
 import express from 'express';
+import demoController from '../controllers/demo.js';
 const router = express.Router();
 
-router.get('/demo', (req, res) => {
-    res.send('Hello from the demo controller!');
-});
+router.get('/demo',demoController.FindAllDemo)
+router.post('/demo',demoController.CreateDemo)
+
 
 export default router;

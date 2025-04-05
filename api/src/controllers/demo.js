@@ -13,4 +13,15 @@ async function FindAllDemo(req, res) {
     }
 }
 
-export default { FindAllDemo };
+async function CreateDemo(req, res) {
+    try {
+        const data = req.body;
+        console.log('Creating demo:', data);
+        await demoService.CreateDemo(data);
+        res.status(201).json({ message: 'Demo created successfully' });
+    } catch (error) {
+        throw new Error('Error in CreateDemo controller: ' + error.message);
+    }
+}
+
+export default { FindAllDemo, CreateDemo };

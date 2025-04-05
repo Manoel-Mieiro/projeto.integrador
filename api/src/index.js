@@ -6,6 +6,9 @@ import db from './db.js';
 
 
 dotenv.config();
+console.log('PORT:', process.env.PORT);
+console.log('DB_URI:', process.env.DB_URI);
+console.log('DB_NAME:', process.env.DB_NAME);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
