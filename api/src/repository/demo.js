@@ -4,8 +4,7 @@ import instance from '../db.js';
 async function FindAllDemo() {
     try {
         const db = await instance.GetDb();
-        const collection = db.collection('tracing');
-
+        const collection = db.collection('test');
         return await collection.find({}).toArray();
     } catch (error) {
         console.log('Error in GetDemo:', error);
@@ -16,10 +15,11 @@ async function FindAllDemo() {
 async function CreateDemo(data) {
     try {
         const db = await instance.GetDb();
-        const collection = db.collection('tracing');
-
+        const collection = db.collection('test');
         console.log('Creating demo:', data);
-        await collection.insertOne(data)
+        for (const item of data) {
+            await collection.insertOne(item);
+        }
     } catch (error) {
         console.log('Error in CreateDemo:', error);
         return;
