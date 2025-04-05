@@ -27,9 +27,8 @@ async function CreateDemo(data) {
         const db = await instance.GetDb();
         const collection = db.collection(process.env.DB_COLLECTION);
         console.log('Creating demo:', data);
-        for (const item of data) {
-            await collection.insertOne(item);
-        }
+        await collection.insertOne(data);
+
     } catch (error) {
         console.log('Error in CreateDemo:', error);
         return;
