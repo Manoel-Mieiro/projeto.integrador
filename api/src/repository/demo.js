@@ -7,7 +7,7 @@ async function FindAllDemo() {
         const collection = db.collection('test');
         return await collection.find({}).toArray();
     } catch (error) {
-        console.log('Error in GetDemo:', error);
+        console.log('Error in FindAllDemo:', error);
         return;
     }
 }
