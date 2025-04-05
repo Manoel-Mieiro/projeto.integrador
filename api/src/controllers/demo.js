@@ -13,6 +13,18 @@ async function FindAllDemo(req, res) {
     }
 }
 
+async function FindOneDemo(req, res) {
+    try {
+        const asw = await demoService.FindOneDemo(req.params.id);
+        if (!asw) {
+            return res.status(404).json({ message: 'Demo not found' });
+        }
+        res.status(200).json(asw);
+    } catch (error) {
+        throw new Error('Error in GetDemo controller: ' + error.message);
+    }
+}
+
 async function CreateDemo(req, res) {
     try {
         const data = req.body;
@@ -24,4 +36,4 @@ async function CreateDemo(req, res) {
     }
 }
 
-export default { FindAllDemo, CreateDemo };
+export default { FindAllDemo, FindOneDemo, CreateDemo };

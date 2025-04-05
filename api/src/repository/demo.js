@@ -12,6 +12,17 @@ async function FindAllDemo() {
     }
 }
 
+async function FindOneDemo(id) {
+    try {
+        const db = await instance.GetDb();
+        const collection = db.collection('test');
+        return await collection.findOne({ _id: id });
+    } catch (error) {
+        console.log('Error in FindOneDemo:', error);
+        return;
+    }
+}
+
 async function CreateDemo(data) {
     try {
         const db = await instance.GetDb();
@@ -26,4 +37,4 @@ async function CreateDemo(data) {
     }
 }
 
-export default { FindAllDemo, CreateDemo }
+export default { FindAllDemo, FindOneDemo, CreateDemo }
