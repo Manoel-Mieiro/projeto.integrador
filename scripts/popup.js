@@ -19,8 +19,16 @@ document.addEventListener("DOMContentLoaded", () => {
     button.updateButton(btn);
 
     if (btn.id === "start") {
+      await chrome.runtime.sendMessage({ 
+        action: "setRecording", 
+        value: false 
+      });
       await record.stopRecording();
     } else {
+      await chrome.runtime.sendMessage({ 
+        action: "setRecording", 
+        value: true 
+      });
       await record.recordTabs();
     }
   });

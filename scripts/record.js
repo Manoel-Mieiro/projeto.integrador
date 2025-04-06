@@ -13,7 +13,7 @@ async function stopRecording() {
 async function recordTabs() {
   let [tab] = await getTab();
 
-  const payload = buildPayload(tab, teamsURL)
+  const payload =  buildPayload(tab, teamsURL);
 
   chrome.runtime.sendMessage({
     type: "tabData",
@@ -27,19 +27,17 @@ async function getTab() {
   return await chrome.tabs.query({ active: true, lastFocusedWindow: true });
 }
 
-function buildPayload(tab, target) {
-  let payload = {
+function buildPayload(tab, target, eventType) {
+  return {
     url: tab.url,
     onlineClass: target,
     title: tab.title,
     muted: tab.mutedInfo.muted,
     lastAccessed: tab.lastAccessed,
-    timestamp: Date.now().toString,
+    timestamp: Date.now(), 
+    event: eventType, 
     message: trace.buildLogMessage(tab.url, target),
   };
-
-  return payload;
 }
 
-
-export default { stopRecording, recordTabs };
+export default { stopRecording, recordTabs, buildPayload };

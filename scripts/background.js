@@ -1,3 +1,7 @@
+import api from "./api.js";
+import record from "./record.js";
+import trace from "./trace.js";
+
 const teamsURL = "https://teams.microsoft.com/v2/";
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -6,12 +10,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   } else if (request.type === "console") {
     console.log(request.message);
   } else if (request.type === "tabData") {
-    console.log("Payload recebido do popup:", request.payload);
-
-    console.log("URL:", request.payload.url);
-    console.log("Title:", request.payload.title);
-    console.log("Muted:", request.payload.muted);
-    console.log("LastAccessed:", request.payload.lastAccessed);
+    api.callAPI("POST", "http://localhost:3312/demo", request.payload);
   }
 });
 
@@ -20,6 +19,10 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
 
   if (tab.url && !tab.url.startsWith(teamsURL)) {
     console.log("User left Microsoft Teams tab");
+
+    const payload = record.buildPayload(tab, teamsURL, "onActivated");
+
+    api.callAPI("POST", "http://localhost:3312/demo", payload);
   }
 });
 
@@ -27,6 +30,10 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === "complete") {
     if (tab.url && !tab.url.startsWith(teamsURL)) {
       console.log("User left Microsoft Teams tab");
+
+      const payload = record.buildPayload(tab, teamsURL, "onUpdated");
+
+      api.callAPI("POST", "http://localhost:3312/demo", payload);
     }
   }
 });
