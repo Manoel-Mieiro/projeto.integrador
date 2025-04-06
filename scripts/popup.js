@@ -18,17 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
   btn.addEventListener("click", async () => {
     button.updateButton(btn);
 
-    if (btn.id === "start") {
-      await chrome.runtime.sendMessage({ 
-        action: "setRecording", 
-        value: false 
-      });
+    const isRecording = btn.id !== "start";
+
+    await chrome.storage.local.set({ recording: isRecording });
+
+    if (!isRecording) {
       await record.stopRecording();
     } else {
-      await chrome.runtime.sendMessage({ 
-        action: "setRecording", 
-        value: true 
-      });
       await record.recordTabs();
     }
   });

@@ -1,8 +1,12 @@
 import api from "./api.js";
 import record from "./record.js";
-import trace from "./trace.js";
 
 const teamsURL = "https://teams.microsoft.com/v2/";
+
+async function shouldRecord() {
+  const { recording } = await chrome.storage.local.get("recording");
+  return recording;
+}
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.type === "click_event") {
@@ -15,6 +19,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  if (!(await shouldRecord())) return;
+
   const tab = await chrome.tabs.get(activeInfo.tabId);
 
   if (tab.url && !tab.url.startsWith(teamsURL)) {
@@ -26,8 +32,10 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
   }
 });
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (changeInfo.status === "complete") {
+    if (!(await shouldRecord())) return;
+
     if (tab.url && !tab.url.startsWith(teamsURL)) {
       console.log("User left Microsoft Teams tab");
 
