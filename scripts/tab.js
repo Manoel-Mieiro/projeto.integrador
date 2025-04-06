@@ -1,4 +1,5 @@
 import trace from "./trace";
+
 async function getTab() {
   let queryOptions = { active: true, lastFocusedWindow: true };
   return await chrome.tabs.query(queryOptions);

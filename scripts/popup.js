@@ -1,36 +1,27 @@
 import record from "./record.js";
 import button from "./button.js";
 
-window.addEventListener("DOMContentLoaded", () => {
-  let btn = document.querySelector(".action-button");
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("start");
 
   if (!btn) {
-    chrome.runtime.sendMessage({
-      type: "console",
-      message: "Botão não encontrado.",
-    });
+    console.error("Botão não encontrado");
     return;
   }
 
-  chrome.runtime.sendMessage({
-    type: "console",
-    message: `Botão tem id ${btn.id}`,
-  });
+  const savedId = localStorage.getItem("buttonId");
+  if (savedId) {
+    btn.id = savedId;
+    btn.textContent = savedId === "start" ? "START" : "STOP";
+  }
 
-  localStorage.setItem("buttonId", btn.id);
-
-  chrome.runtime.sendMessage({
-    type: "console",
-    message: "Salvando botão no local storage...",
-  });
-
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click", async () => {
     button.updateButton(btn);
-    if (btn.id === "stop") {
-      record.recordTab();
-      record.startRecord();
+
+    if (btn.id === "start") {
+      await record.stopRecording();
     } else {
-      record.stopRecording();
+      await record.recordTabs();
     }
   });
 });

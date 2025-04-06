@@ -11,11 +11,29 @@
         "activeTab",
         "tabCapture",
         "nativeMessaging",
-        "scripting"
+        "scripting",
+        "storage"
     ],
     "background": {
         "service_worker": "scripts/background.js"
     },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://teams.microsoft.com/*",
+                "https://meet.google.com/*",
+                "https://*.zoom.us/*",
+                "https://*.webex.com/*"
+            ],
+            "js": [
+                "scripts/record.js",
+                "scripts/trace.js",
+                "scripts/api.js",
+                "scripts/tab.js",
+                "scripts/button.js"
+            ]
+        }
+    ],
     "host_permissions": [
         "http://*/*",
         "https://*/*"

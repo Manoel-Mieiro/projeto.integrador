@@ -1,4 +1,4 @@
-async function CallAPI(method, server, payload) {
+async function callAPI(method, server, payload) {
   let response = null;
   try {
     response = await fetch(server, {
@@ -22,4 +22,4 @@ async function CallAPI(method, server, payload) {
   }
 }
 
-export default { CallAPI };
+export default { callAPI };

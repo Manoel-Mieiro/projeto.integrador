@@ -1,7 +1,7 @@
 import api from "./api.js";
-import tabs from "./tab.js";
+import trace from "./trace.js";
 
-const target = "https://teams.microsoft.com/v2/";
+const teamsURL = "https://teams.microsoft.com/v2/";
 
 async function stopRecording() {
   chrome.runtime.sendMessage({
@@ -10,29 +10,36 @@ async function stopRecording() {
   });
 }
 
-async function recordTab() {
-  let [tab] = await tabs.getTab();
+async function recordTabs() {
+  let [tab] = await getTab();
 
-  const payload = tabs.buildPayload(tab, target);
+  const payload = buildPayload(tab, teamsURL)
 
   chrome.runtime.sendMessage({
     type: "tabData",
     payload: payload,
   });
 
-  api.CallAPI("POST", "http://localhost:3312/demo", payload);
+  api.callAPI("POST", "http://localhost:3312/demo", payload);
 }
 
-function startRecord() {
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") {
-      chrome.runtime.sendMessage({
-        type: "console",
-        message: "User switched tab or minimized window",
-      });
-      recordTab();
-    }
-  });
+async function getTab() {
+  return await chrome.tabs.query({ active: true, lastFocusedWindow: true });
 }
 
-export default { startRecord, stopRecording, recordTab };
+function buildPayload(tab, target) {
+  let payload = {
+    url: tab.url,
+    onlineClass: target,
+    title: tab.title,
+    muted: tab.mutedInfo.muted,
+    lastAccessed: tab.lastAccessed,
+    timestamp: Date.now().toString,
+    message: trace.buildLogMessage(tab.url, target),
+  };
+
+  return payload;
+}
+
+
+export default { stopRecording, recordTabs };
