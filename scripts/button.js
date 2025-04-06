@@ -7,9 +7,9 @@ function updateButton(btn) {
   });
 
   btn.id = newId;
-  btn.textContent = newId === "start" ? "START" : "STOP";
+  btn.textContent = newId === "start" ? "RECORD" : "STOP";
 
-  localStorage.setItem("buttonId", newId); 
+  localStorage.setItem("buttonId", newId);
 }
 
 export default { updateButton };
