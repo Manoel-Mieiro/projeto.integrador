@@ -4,16 +4,36 @@
     "version": "1.0",
     "manifest_version": 3,
     "action": {
-        "default_popup": "index.html",
+        "default_popup": "popup.html",
         "default_icon": "images/eye-solid.svg"
     },
     "permissions": [
         "activeTab",
-        "nativeMessaging"
+        "tabCapture",
+        "nativeMessaging",
+        "scripting",
+        "storage"
     ],
     "background": {
-        "service_worker": "scripts/background.js"
+        "service_worker": "scripts/background.js",
+        "type": "module"
     },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://teams.microsoft.com/*",
+                "https://meet.google.com/*",
+                "https://*.zoom.us/*",
+                "https://*.webex.com/*"
+            ],
+            "js": [
+                "scripts/record.js",
+                "scripts/trace.js",
+                "scripts/api.js",
+                "scripts/button.js"
+            ]
+        }
+    ],
     "host_permissions": [
         "http://*/*",
         "https://*/*"
