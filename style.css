@@ -1,48 +1,47 @@
 /* https://www.color-hex.com/color-palette/6409 */
 :root {
-    --espeon-blue: #294974;
-    --espeon-purple: #926ecc;
-    --espeon-purple-light: #dbb2e3;
-    --espeon-purple-dark: #8653b2;
-    --espeon-red: #e73752;
-    background-color: var(--espeon-blue);
+  --espeon-blue: #294974;
+  --espeon-purple: #926ecc;
+  --espeon-purple-light: #dbb2e3;
+  --espeon-purple-dark: #8653b2;
+  --espeon-red: #e73752;
+  background-color: var(--espeon-blue);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    height: 100%;
-    font-family: Arial, sans-serif;
+  height: 100%;
+  font-family: Arial, sans-serif;
 }
 
 .main {
-    color: var(--espeon-purple-light);
-    display: grid;
-    justify-content: center;
-    width: 300px;
-    margin-bottom: 1px;
+  color: var(--espeon-purple-light);
+  display: grid;
+  justify-content: center;
+  width: 300px;
+  margin-bottom: 1px;
 }
 
-.description{
-    display: flex;
-    justify-content: center;
-    margin: 2em;
+.description {
+  display: flex;
+  justify-content: center;
+  margin: 2em;
 }
 
 #allow {
-    background-color: var(--espeon-red);
-    color: var(--espeon-purple-light);
-    border: 1px;
-    border-radius: 2px;
-    padding: 5px;
-    font-weight: bold;
+  background-color: var(--espeon-red);
+  color: var(--espeon-purple-light);
+  border: 1px;
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
 }
 
 #logo {
-    
 }
