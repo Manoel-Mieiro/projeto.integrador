@@ -9,22 +9,9 @@
     },
     "permissions": [
         "activeTab",
+        "tabCapture",
         "nativeMessaging",
         "scripting"
-    ],
-    "content_scripts": [
-        {
-            "matches": [
-                "https://teams.microsoft.com/*",
-                "https://meet.google.com/*",
-                "https://*.zoom.us/*",
-                "https://*.webex.com/*",
-                "https://*.gotomeeting.com/*"
-            ],
-            "js": [
-                "scripts/localstorage.js"
-            ]
-        }
     ],
     "background": {
         "service_worker": "scripts/background.js"
