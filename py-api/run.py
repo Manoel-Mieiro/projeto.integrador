@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from app import create_app
 import os
 
-load_dotenv("py-api/.env")
+load_dotenv(".env")
 
 PORT = int(os.getenv("FLASK_RUN_PORT", 5000))
 
