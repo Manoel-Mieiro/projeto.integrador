@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from db import showMongo
 from app import create_app
 import os
 
@@ -12,4 +13,5 @@ app = create_app()
 
 if __name__ == "__main__":
     print("Server started at port", PORT)
+    print("BANCO INICIADO:\n", showMongo())
     app.run(debug=False, port=PORT)
