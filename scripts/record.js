@@ -15,7 +15,7 @@ function retrieveUser() {
   });
 }
 
-function retrieveMeet(){
+function retrieveMeet() {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(["meet"], (result) => {
       if (chrome.runtime.lastError) {
@@ -76,11 +76,17 @@ async function buildPayload(tab, target, eventType) {
     onlineClass: target,
     title: tab.title,
     muted: tab.mutedInfo.muted,
-    lastAccessed: tab.lastAccessed,
-    timestamp: Date.now(),
+    lastAccessed: trace.standardizeTime(new Date(tab.lastAccessed)),
+    timestamp: trace.standardizeTime(new Date()),
     event: eventType,
     message: trace.buildLogMessage(tab.url, target, user),
   };
 }
 
-export default { stopRecording, recordTabs, buildPayload, retrieveUser,retrieveMeet };
+export default {
+  stopRecording,
+  recordTabs,
+  buildPayload,
+  retrieveUser,
+  retrieveMeet,
+};
