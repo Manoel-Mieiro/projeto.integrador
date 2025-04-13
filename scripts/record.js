@@ -65,4 +65,4 @@ function buildPayload(tab, target, eventType) {
   };
 }
 
-export default { stopRecording, recordTabs, buildPayload };
+export default { stopRecording, recordTabs, buildPayload, retrieveUser };
