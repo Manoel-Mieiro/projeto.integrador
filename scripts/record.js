@@ -3,13 +3,35 @@ import trace from "./trace.js";
 
 const teamsURL = "https://teams.microsoft.com/v2/";
 
+let isStopping = false;
+
+function retrieveUser() {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(["student"], (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result.student);
+      }
+    });
+  });
+}
+
 async function stopRecording() {
+  if (isStopping) return;
+  isStopping = true;
+
+  const user = await retrieveUser();
+
   chrome.runtime.sendMessage({
     type: "console",
-    message: "User stopped recording",
+    message: `${user} stopped recording`,
   });
-  chrome.storage.local.remove("state", () => {
-    window.location.href = "form.html";
+
+  chrome.storage.local.remove(["state", "student", "meet"], () => {
+    console.log("State removed from storage");
+    alert("Recording stopped and state removed from storage.");
+    window.location.href = "redirect.html";
   });
 }
 
