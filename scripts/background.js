@@ -2,8 +2,6 @@ import api from "./api.js";
 import record from "./record.js";
 import { CONFIG } from "./config.js";
 
-const teamsURL = "https://teams.microsoft.com/v2/";
-
 async function shouldRecord() {
   const { recording } = await chrome.storage.local.get("recording");
   return recording;
@@ -28,11 +26,12 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
 
   const tab = await chrome.tabs.get(activeInfo.tabId);
   const student = await record.retrieveUser();
+  const meet = await record.retrieveMeet();
 
-  if (tab.url && !tab.url.startsWith(teamsURL)) {
+  if (tab.url && !tab.url.startsWith(meet)) {
     console.log(`[onActivated] ${student} left Microsoft Teams tab`);
 
-    const payload = await record.buildPayload(tab, teamsURL, "onActivated");
+    const payload = await record.buildPayload(tab, meet, "onActivated");
 
     api.callAPI(
       "POST",
@@ -47,11 +46,12 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     if (!(await shouldRecord())) return;
 
     const student = await record.retrieveUser();
+    const meet = await record.retrieveMeet();
 
-    if (tab.url && !tab.url.startsWith(teamsURL)) {
+    if (tab.url && !tab.url.startsWith(meet)) {
       console.log(`[onUpdated] ${student} left Microsoft Teams tab`);
 
-      const payload = await record.buildPayload(tab, teamsURL, "onUpdated");
+      const payload = await record.buildPayload(tab, meet, "onUpdated");
 
       api.callAPI(
         "POST",

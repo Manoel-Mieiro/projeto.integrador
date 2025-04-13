@@ -1,8 +1,6 @@
 import api from "./api.js";
 import trace from "./trace.js";
 
-const teamsURL = "https://teams.microsoft.com/v2/";
-
 let isStopping = false;
 
 function retrieveUser() {
@@ -12,6 +10,18 @@ function retrieveUser() {
         reject(chrome.runtime.lastError);
       } else {
         resolve(result.student);
+      }
+    });
+  });
+}
+
+function retrieveMeet(){
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(["meet"], (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result.meet);
       }
     });
   });
@@ -37,8 +47,9 @@ async function stopRecording() {
 
 async function recordTabs() {
   let [tab] = await getTab();
+  const meet = await retrieveMeet();
 
-  const payload = await buildPayload(tab, teamsURL);
+  const payload = await buildPayload(tab, meet);
 
   chrome.runtime.sendMessage({
     type: "tabData",
@@ -68,8 +79,8 @@ async function buildPayload(tab, target, eventType) {
     lastAccessed: tab.lastAccessed,
     timestamp: Date.now(),
     event: eventType,
-    message: trace.buildLogMessage(tab.url, target),
+    message: trace.buildLogMessage(tab.url, target, user),
   };
 }
 
-export default { stopRecording, recordTabs, buildPayload, retrieveUser };
+export default { stopRecording, recordTabs, buildPayload, retrieveUser,retrieveMeet };
