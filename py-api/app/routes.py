@@ -1,5 +1,4 @@
-from flask import Blueprint
-from flask import jsonify
+from flask import jsonify, Blueprint, request
 import app.controllers.controller as traceController
 
 traces_bp = Blueprint("traces", __name__)
@@ -10,4 +9,14 @@ def listTraces():
     try:
         return jsonify(traceController.listTraces()), 200
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"[ROUTES]error": str(e)}), 500
+
+
+@traces_bp.route("/traces", methods=["POST"])
+def createTrace():
+    try:
+        data = request.get_json()
+        traceController.createTrace(data)
+        return jsonify({"message": "Trace criado com sucesso"}), 201
+    except Exception as e:
+        return jsonify({"[ROUTES]error": str(e)}), 500

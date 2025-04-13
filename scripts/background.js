@@ -14,7 +14,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   } else if (request.type === "console") {
     console.log(request.message);
   } else if (request.type === "tabData") {
-    api.callAPI("POST", "http://localhost:3312/demo", request.payload);
+    api.callAPI("POST", "http://localhost:8183/traces", request.payload);
   }
 });
 
@@ -28,7 +28,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
 
     const payload = record.buildPayload(tab, teamsURL, "onActivated");
 
-    api.callAPI("POST", "http://localhost:3312/demo", payload);
+    api.callAPI("POST", "http://localhost:8183/traces", payload);
   }
 });
 
@@ -41,7 +41,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
       const payload = record.buildPayload(tab, teamsURL, "onUpdated");
 
-      api.callAPI("POST", "http://localhost:3312/demo", payload);
+      api.callAPI("POST", "http://localhost:8183/traces", payload);
     }
   }
 });
