@@ -32,7 +32,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
   if (tab.url && !tab.url.startsWith(teamsURL)) {
     console.log(`[onActivated] ${student} left Microsoft Teams tab`);
 
-    const payload = record.buildPayload(tab, teamsURL, "onActivated");
+    const payload = await record.buildPayload(tab, teamsURL, "onActivated");
 
     api.callAPI(
       "POST",
@@ -51,7 +51,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     if (tab.url && !tab.url.startsWith(teamsURL)) {
       console.log(`[onUpdated] ${student} left Microsoft Teams tab`);
 
-      const payload = record.buildPayload(tab, teamsURL, "onUpdated");
+      const payload = await record.buildPayload(tab, teamsURL, "onUpdated");
 
       api.callAPI(
         "POST",

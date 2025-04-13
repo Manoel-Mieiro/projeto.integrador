@@ -38,7 +38,7 @@ async function stopRecording() {
 async function recordTabs() {
   let [tab] = await getTab();
 
-  const payload = buildPayload(tab, teamsURL);
+  const payload = await buildPayload(tab, teamsURL);
 
   chrome.runtime.sendMessage({
     type: "tabData",
@@ -52,14 +52,16 @@ async function getTab() {
   return await chrome.tabs.query({ active: true, lastFocusedWindow: true });
 }
 
-function buildPayload(tab, target, eventType) {
+async function buildPayload(tab, target, eventType) {
+  const user = await retrieveUser();
+
   return {
-    org: "CEFET/RJ",
-    period: "13:00-15:00",
-    subject: "Programação Web",
-    teacher: "Diego Brando",
-    student: "sman.aluno@cefet-rj.br",
-    url: tab.url,
+    org: null,
+    period: null,
+    subject: null,
+    teacher: null,
+    student: user,
+    url: tab.url || null,
     onlineClass: target,
     title: tab.title,
     muted: tab.mutedInfo.muted,
