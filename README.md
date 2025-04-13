@@ -20,11 +20,10 @@ To install the ESPEON project, follow these steps:
     ```
 2. Navigate to the project directory:
     ```bash
-    cd ESPEON
+    cd api
     ```
 3. Install the dependencies:
     ```bash
-    cd api
     ./required.packages.sh
     
     ```
@@ -35,4 +34,4 @@ To start the project, run the following command:
 
 ```bash
 cd api
-npm start
+python run.py
