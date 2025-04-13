@@ -8,12 +8,15 @@ async function stopRecording() {
     type: "console",
     message: "User stopped recording",
   });
+  chrome.storage.local.remove("state", () => {
+    window.location.href = "form.html";
+  });
 }
 
 async function recordTabs() {
   let [tab] = await getTab();
 
-  const payload =  buildPayload(tab, teamsURL);
+  const payload = buildPayload(tab, teamsURL);
 
   chrome.runtime.sendMessage({
     type: "tabData",
@@ -34,8 +37,8 @@ function buildPayload(tab, target, eventType) {
     title: tab.title,
     muted: tab.mutedInfo.muted,
     lastAccessed: tab.lastAccessed,
-    timestamp: Date.now(), 
-    event: eventType, 
+    timestamp: Date.now(),
+    event: eventType,
     message: trace.buildLogMessage(tab.url, target),
   };
 }

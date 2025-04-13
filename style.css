@@ -28,19 +28,24 @@ body {
   margin-bottom: 1px;
 }
 
-.description {
+.description, .form-main {
   display: flex;
   justify-content: center;
   margin: 2em;
 }
 
-.form_container {
-  display: flex;
-  justify-content: center;
-  margin: 2em;
+.form-main {
+  width: 500px;
+  color: var(--espeon-purple-light);
 }
 
-#start, #stop {
+input .form_main{
+  background-color: var(--espeon-red);
+  color: var(--espeon-blue);
+}
+
+#start,
+#stop {
   background-color: var(--espeon-red);
   color: var(--espeon-purple-light);
   border: 1px;
@@ -49,9 +54,18 @@ body {
   font-weight: bold;
 }
 
-#stop{
+#stop {
   background-color: var(--espeon-purple-dark);
 }
 
 #logo {
+}
+
+#login{
+  padding: 6px;
+  border: none;
+  border-radius: 2px;
+  background-color: var(--espeon-purple-dark);
+  color: var(--espeon-purple-light);
+  font-weight: bold;
 }

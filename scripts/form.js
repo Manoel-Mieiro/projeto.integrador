@@ -6,8 +6,11 @@ form.addEventListener("submit", (event) => {
   const student = document.getElementById("email").value;
   const meet = document.getElementById("meet").value;
 
-  chrome.storage.local.set({ student: student, meet: meet }, () => {
-    alert("Formulário enviado com sucesso!");
-    window.location.href = "popup.html";
-  });
+  chrome.storage.local.set(
+    { student: student, meet: meet, state: "logged" },
+    () => {
+      alert("Formulário enviado com sucesso!");
+      window.location.href = "popup.html";
+    }
+  );
 });

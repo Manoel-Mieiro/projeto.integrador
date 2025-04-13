@@ -4,7 +4,7 @@
     "version": "1.0",
     "manifest_version": 3,
     "action": {
-        "default_popup": "form.html",
+        "default_popup": "redirect.html",
         "default_icon": "images/eye-solid.svg"
     },
     "permissions": [

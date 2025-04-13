@@ -3,6 +3,12 @@ import record from "./record.js";
 
 const teamsURL = "https://teams.microsoft.com/v2/";
 
+chrome.storage.local.get(['student'], (result) => {
+  const email = result.student;
+  console.log('Student email:', email);
+});
+
+
 async function shouldRecord() {
   const { recording } = await chrome.storage.local.get("recording");
   return recording;
