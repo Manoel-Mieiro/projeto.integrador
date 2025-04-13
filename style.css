@@ -5,7 +5,6 @@
   --espeon-purple-light: #dbb2e3;
   --espeon-purple-dark: #8653b2;
   --espeon-red: #e73752;
-  background-color: var(--espeon-blue);
 }
 
 * {
@@ -14,27 +13,112 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-  font-family: Arial, sans-serif;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.main {
+
+html,
+body {
+  height: 150px;
+  max-height: 300px;
+  font-family: Arial, sans-serif;
+  background-color: var(--espeon-blue)
+}
+
+.main_card, .form_main{
+  background-color: var(--espeon-blue);
+  margin-bottom: 1px;
+  z-index: 1;
+}
+
+.main_card {
   color: var(--espeon-purple-light);
   display: grid;
   justify-content: center;
   width: 300px;
-  margin-bottom: 1px;
 }
 
-.description {
+.description,
+.form_main {
   display: flex;
   justify-content: center;
   margin: 2em;
 }
 
-#start, #stop {
+.form_main {
+  width: 500px;
+  display: grid;
+  grid-template-columns: repeat(2, 3fr);
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+  height: auto;
+  color: var(--espeon-purple-light);
+}
+
+.form-container{
+  background-color: var(--espeon-purple-light);
+  color: var(--espeon-blue);
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.form_main input, label{
+  align-self: flex-start;
+  
+}
+
+.form_main input {
+  background-color: var(--espeon-blue);
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  color: var(--espeon-red);
+  font-weight: bolder;
+  font-size: large;
+}
+
+.form_main input:focus {
+  outline: none;
+  border: 2px solid var(--espeon-purple-dark);
+  background-color: var(--espeon-blue);
+  opacity: 0.6;
+  color: var(--espeon-red);
+}
+
+.form_main input:-webkit-autofill {
+  background-color: var(--espeon-blue) !important;
+  -webkit-box-shadow: 0 0 0px 1000px var(--espeon-blue) inset !important;
+  -webkit-text-fill-color: var(--espeon-red) !important;
+  caret-color: var(--espeon-red) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.form_main label {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.form_header{
+  display: grid;
+  grid-template-rows: 2fr 0.4fr;
+}
+
+.form_header h1{
+  font-size: 30px;
+}
+
+#espeon_image{
+  height: 5rem;
+  justify-self: center;
+}
+
+
+#start,
+#stop {
   background-color: var(--espeon-red);
   color: var(--espeon-purple-light);
   border: 1px;
@@ -43,9 +127,20 @@ body {
   font-weight: bold;
 }
 
-#stop{
+#stop {
   background-color: var(--espeon-purple-dark);
 }
 
 #logo {
+}
+
+#login {
+  padding: 10px;
+  border: none;
+  border-radius: 2px;
+  background-color: var(--espeon-blue);
+  color: var(--espeon-red);
+  font-weight: bold;
+  align-self: center;
+  margin: 4px;
 }
