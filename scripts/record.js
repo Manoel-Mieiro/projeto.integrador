@@ -5,7 +5,7 @@ const teamsURL = "https://teams.microsoft.com/v2/";
 
 async function stopRecording() {
   chrome.runtime.sendMessage({
-    type: "console",
+    type: "console",  
     message: "User stopped recording",
   });
 }
@@ -29,6 +29,11 @@ async function getTab() {
 
 function buildPayload(tab, target, eventType) {
   return {
+    org: "CEFET/RJ",
+    period: "13:00-15:00",
+    subject: "Programação Web",
+    teacher: "Diego Brando",
+    student: "sman.aluno@cefet-rj.br",
     url: tab.url,
     onlineClass: target,
     title: tab.title,
