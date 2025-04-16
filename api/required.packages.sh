@@ -7,3 +7,7 @@ python -m pip install pymongo
 # optional
 pip install python-dotenv
 
+# on ubuntu
+#python3 -m pip install --user Flask
+#python3 -m pip install --user python-dotenv
+#python3 -m pip install --user pymongo
