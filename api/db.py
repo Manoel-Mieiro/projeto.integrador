@@ -11,7 +11,8 @@ COLLECTION = os.getenv("MONGO_COLLECTION")
 client = MongoClient(MONGO_URI)
 database = client[DATABASE_NAME]
 collection = database[COLLECTION]
+usersCollection = database["users"]
 
 
 def showMongo():
-    return {"MONGO": MONGO_URI, "COLLECTION": DATABASE_NAME}
+    return {"MONGO": MONGO_URI, "COLLECTION": DATABASE_NAME, "USERS": usersCollection}
