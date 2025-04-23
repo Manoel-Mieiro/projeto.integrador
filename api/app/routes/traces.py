@@ -1,5 +1,5 @@
 from flask import jsonify, Blueprint, request
-import app.controllers.controller as traceController
+import app.controllers.traces as traceController
 
 traces_bp = Blueprint("traces", __name__)
 
