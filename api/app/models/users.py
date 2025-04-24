@@ -17,7 +17,7 @@ class Users:
             "role": self.role.value
         }
         if self._id:
-            data["_id"] = self._id
+            data["_id"] = str(self._id)
         return data
 
     @staticmethod

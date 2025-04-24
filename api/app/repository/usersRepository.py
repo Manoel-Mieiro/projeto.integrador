@@ -8,9 +8,10 @@ def findAllUsers():
         users_list = []
 
         for doc in docs:
-            users_list.append(Users.from_dict(doc))
+            user = Users.from_dict(doc)
+            users_list.append(user.to_dict())
 
-        return users_list
+        return users_list  
 
     except Exception as e:
         print("[REPOSITORY]Erro ao buscar users:", e)
