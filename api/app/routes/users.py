@@ -20,3 +20,28 @@ def createUser():
         return jsonify({"message": "Usuário cadastrado com sucesso"}), 201
     except Exception as e:
         return jsonify({"[ROUTES]error": str(e)}), 500
+
+
+@users_bp.route("/users/<user_id>", methods=["GET"])
+def findOneUser(user_id):
+    try:
+        return jsonify(userController.findOneUser(user_id))
+    except Exception as e:
+        return jsonify({"[ROUTES]error": str(e)}), 500
+
+
+@users_bp.route("/users/<user_id>", methods=["PUT"])
+def updateUser(user_id):
+    try:
+        data = request.get_json()
+        return jsonify(userController.updateUser(user_id, data))
+    except Exception as e:
+        return jsonify({"[ROUTES]error": str(e)}), 500
+
+
+@users_bp.route("/users/<user_id>", methods=["DELETE"])
+def deleleteUser(user_id):
+    try:
+        return jsonify(userController.deleteUser(user_id))
+    except Exception as e:
+        return jsonify({"[ROUTES]error": str(e)}), 500
