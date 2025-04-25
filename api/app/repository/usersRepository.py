@@ -30,18 +30,18 @@ def createUser(data: Users):
         raise e
 
 
-def findOneUser(id: ObjectId):
+def findOneUser(user_id: ObjectId):
     try:
-        return Users(users.find_one({"_id": id})).to_dict()
+        return Users(users.find_one({"_id": user_id})).to_dict()
     except Exception as e:
         print("[REPOSITORY]Erro ao buscar user:", e)
         raise e
 
 
-def updateUser(updatedUser: Users):
+def updateUser(user_id: ObjectId, updatedUser: Users):
     try:
-        findOneUser(updatedUser._id)
-        users.update_one({"_id": updatedUser._id}, {
+        findOneUser(user_id)
+        users.update_one({"_id": user_id}, {
                          "$set": updatedUser.to_dict()})
 
         return updatedUser.to_dict()
@@ -50,11 +50,11 @@ def updateUser(updatedUser: Users):
         raise e
 
 
-def deleteUser(id: ObjectId):
+def deleteUser(user_id: ObjectId):
     try:
-        result = users.delete_one({"_id": id})
+        result = users.delete_one({"_id": user_id})
         if result.deleted_count == 0:
-            raise ValueError(f"Nenhum usuário encontrado com o id {id}")
+            raise ValueError(f"Nenhum usuário encontrado com o id {user_id}")
         return {"message": "[REPOSITORY]Usuário removido com sucesso"}
     except Exception as e:
         print("[REPOSITORY]Erro ao remover user:", e)
