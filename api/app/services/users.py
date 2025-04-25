@@ -1,5 +1,6 @@
 import app.repository.usersRepository as users
 
+
 def findAllUsers():
     try:
         return users.findAllUsers()
@@ -13,4 +14,28 @@ def createUser(data):
         return users.createUser(data)
     except Exception as e:
         print("[SERVICE]Error creating user:", e)
+        raise e
+
+
+def findOneUser(id):
+    try:
+        return users.findOneUser(id)
+    except Exception as e:
+        print("[SERVICE]Error fetching user:", e)
+        raise e
+
+
+def updateUser(data):
+    try:
+        return users.updateUser(data)
+    except Exception as e:
+        print("[SERVICE]Error updating user:", e)
+        raise e
+
+
+def deleteUser(id):
+    try:
+        return users.deleteUser(id)
+    except Exception as e:
+        print("[SERVICE]Error deleting user:", e)
         raise e
