@@ -6,7 +6,7 @@ def findAllUsers():
     try:
         return userService.findAllUsers()
     except Exception as e:
-        print("[SERVICE]Error fetching users:", e)
+        print("[CONTROLLER]Error fetching users:", e)
         raise e
 
 
@@ -18,5 +18,29 @@ def createUser(data):
         )
         return userService.createUser(user.to_standard())
     except Exception as e:
-        print("[SERVICE]Error creating user:", e)
+        print("[CONTROLLER]Error creating user:", e)
+        raise e
+
+
+def findOneUser(id):
+    try:
+        return userService.findOneUser(id)
+    except Exception as e:
+        print("[CONTROLLER]Error fetching user:", e)
+        raise e
+
+
+def updateUser(updatedUser):
+    try:
+        return userService.updateUser(updatedUser)
+    except Exception as e:
+        print("[CONTROLLER]Error updationg user:", e)
+        raise e
+
+
+def deleteUser(id_user):
+    try:
+        return userService.deleteUser(id_user)
+    except Exception as e:
+        print("[CONTROLLER]Error deleting user:", e)
         raise e
