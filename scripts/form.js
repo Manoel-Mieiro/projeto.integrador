@@ -2,9 +2,14 @@ const form = document.getElementById("form");
 const register = document.getElementById("register");
 
 register.addEventListener("click", () => {
-  window.location.href = "register.html";
+  chrome.storage.local.set({ state: "register" }, () => {
+    chrome.runtime.sendMessage({
+      type: "console",
+      message: "Redirecionando para a página de registro",
+    });
+    window.location.href = "register.html";
+  });
 });
-
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
