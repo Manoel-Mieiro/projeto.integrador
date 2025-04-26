@@ -30,9 +30,9 @@ def findOneUser(id):
         raise e
 
 
-def updateUser(updatedUser):
+def updateUser(id_user, updatedUser):
     try:
-        return userService.updateUser(updatedUser)
+        return userService.updateUser(id_user, updatedUser)
     except Exception as e:
         print("[CONTROLLER]Error updationg user:", e)
         raise e

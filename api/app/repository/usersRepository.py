@@ -32,19 +32,30 @@ def createUser(data: Users):
 
 def findOneUser(user_id: ObjectId):
     try:
-        return Users(users.find_one({"_id": user_id})).to_dict()
+        user_data = users.find_one(
+            {"_id": ObjectId(user_id)}
+
+        )
+        if not user_data:
+            raise ValueError(f"Nenhum usuário encontrado com o id {user_id}")
+
+        return Users.from_dict(user_data).to_dict()
     except Exception as e:
         print("[REPOSITORY]Erro ao buscar user:", e)
         raise e
 
 
-def updateUser(user_id: ObjectId, updatedUser: Users):
+def updateUser(user_id: ObjectId, updatedUser: dict):
     try:
-        findOneUser(user_id)
-        users.update_one({"_id": user_id}, {
-                         "$set": updatedUser.to_dict()})
+        result = users.update_one(
+            {"_id": ObjectId(user_id)},
+            {"$set": updatedUser}
+        )
 
-        return updatedUser.to_dict()
+        if result.matched_count == 0:
+            raise ValueError("Usuário não encontrado.")
+
+        return findOneUser(user_id)
     except Exception as e:
         print("[REPOSITORY]Erro ao atualizar user:", e)
         raise e
@@ -52,9 +63,13 @@ def updateUser(user_id: ObjectId, updatedUser: Users):
 
 def deleteUser(user_id: ObjectId):
     try:
-        result = users.delete_one({"_id": user_id})
+        result = users.delete_one(
+            {"_id": ObjectId(user_id)}
+        )
+
         if result.deleted_count == 0:
             raise ValueError(f"Nenhum usuário encontrado com o id {user_id}")
+
         return {"message": "[REPOSITORY]Usuário removido com sucesso"}
     except Exception as e:
         print("[REPOSITORY]Erro ao remover user:", e)

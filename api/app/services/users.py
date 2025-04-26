@@ -25,9 +25,9 @@ def findOneUser(id):
         raise e
 
 
-def updateUser(data):
+def updateUser(id_user, data):
     try:
-        return users.updateUser(data)
+        return users.updateUser(id_user, data)
     except Exception as e:
         print("[SERVICE]Error updating user:", e)
         raise e
