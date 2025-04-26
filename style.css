@@ -139,6 +139,21 @@ body {
   font-size: 1em;
 }
 
+.selector{
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 auto;  
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.selector, option{
+  background-color: var(--espeon-blue);
+  color: var(--espeon-red);
+  font-weight: bold;
+}
+
 #espeon_image {
   height: 5rem;
   justify-self: center;
@@ -150,7 +165,6 @@ body {
   color: var(--espeon-purple-light);
   border: 1px;
   border-radius: 2px;
-  padding: 5px;
   font-weight: bold;
 }
 
