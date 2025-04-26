@@ -19,16 +19,16 @@ form {
   align-items: center;
 }
 
-
 html,
 body {
   height: 150px;
   max-height: 300px;
   font-family: Arial, sans-serif;
-  background-color: var(--espeon-blue)
+  background-color: var(--espeon-blue);
 }
 
-.main_card, .form_main{
+.main_card,
+.form_main {
   background-color: var(--espeon-blue);
   margin-bottom: 1px;
   z-index: 1;
@@ -59,16 +59,19 @@ body {
   color: var(--espeon-purple-light);
 }
 
-.form-container{
+.form-container {
   background-color: var(--espeon-purple-light);
   color: var(--espeon-blue);
   padding: 20px;
   border-radius: 4px;
 }
 
-.form_main input, label{
+.form_main label {
   align-self: flex-start;
-  
+}
+
+.form_main input {
+  align-self: center;
 }
 
 .form_main input {
@@ -102,20 +105,44 @@ body {
   font-weight: bold;
 }
 
-.form_header{
+.form_header {
   display: grid;
   grid-template-rows: 2fr 0.4fr;
 }
 
-.form_header h1{
+.form_header h1 {
   font-size: 30px;
 }
 
-#espeon_image{
+.form_footer {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.btns {
+  padding: 10px;
+  border: none;
+  border-radius: 2px;
+  background-color: var(--espeon-blue);
+  color: var(--espeon-red);
+  font-weight: bold;
+  align-self: center;
+  margin: 4px;
+}
+
+.underline_btn {
+  border: none;
+  background-color: transparent;
+  color: var(--espeon-blue);
+  text-decoration: underline;
+  font-size: 1em;
+}
+
+#espeon_image {
   height: 5rem;
   justify-self: center;
 }
-
 
 #start,
 #stop {
@@ -135,12 +162,22 @@ body {
 }
 
 #login {
-  padding: 10px;
-  border: none;
-  border-radius: 2px;
-  background-color: var(--espeon-blue);
-  color: var(--espeon-red);
-  font-weight: bold;
-  align-self: center;
-  margin: 4px;
+}
+
+#register {
+}
+
+#register_form, .form_main{
+  height: 100px;
+  padding-bottom: 10px;
+  width: 288px;
+}
+
+#register_form, form{
+  margin-bottom: 5px;
+}
+
+#register_form, h1{
+  padding: 4px;
+  margin-bottom: 4px;
 }
