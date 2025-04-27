@@ -2,7 +2,7 @@ from bson import ObjectId
 
 
 class Login:
-    def __init__(self, email: str, token, _id: ObjectId = None):
+    def __init__(self, email: str, token: str, _id: ObjectId = None):
         self._id = _id
         self.email = email
         self.token = token

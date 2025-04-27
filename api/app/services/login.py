@@ -3,7 +3,7 @@ import string
 import random
 
 
-def getToken(token):
+def getToken(token: str):
     try:
         return login.getToken(token)
     except Exception as e:
@@ -11,7 +11,7 @@ def getToken(token):
         raise e
 
 
-def updateToken(usr, newToken):
+def updateToken(usr, newToken: str):
     try:
         return login.updateToken(usr, newToken=newToken)
     except Exception as e:
@@ -27,5 +27,7 @@ def deleteToken(usr):
         raise e
 
 def generateToken():
-    chars = string.digits
+    # contém todos os números de 0 a 9
+    chars = string.digits 
+
     return ''.join(random.choice(chars) for i in range(6))

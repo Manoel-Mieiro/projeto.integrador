@@ -3,18 +3,19 @@ from db import loginCollection as login
 from app.models.login import Login
 
 
-def getToken(token):
+def getToken(token: str):
     try:
         tkn = login.find_one({"token": token})
         if not tkn:
-            raise ValueError(f"Token [{token}] informado é inválido.")
-        return token
+            return False
+
+        return True
     except Exception as e:
         print("[REPOSITORY] Erro inesperado no getToken: ", e)
         raise e
 
 
-def updateToken(usr: Login, newToken):
+def updateToken(usr: Login, newToken: str):
     try:
         association = login.find_one({"email": usr.email})
         if not association:
