@@ -3,7 +3,7 @@ from db import loginCollection as login
 from app.models.login import Login
 
 
-def getToken(token: int):
+def getToken(token):
     try:
         tkn = login.find_one({"token": token})
         if not tkn:
