@@ -35,3 +35,15 @@ def updateToken(usr: Login):
     except Exception as e:
         print("[REPOSITORY] Erro inesperado no updateToken: ", e)
         raise e
+
+
+def deleteLogin(usr: Login):
+    try:
+        result = login.delete_one(
+            {"email": usr.email}
+        )
+        if result.deleted_count == 0:
+            raise ValueError(f"Usuário não encontrado")
+    except Exception as e:
+        print("[REPOSITORY] Erro inesperado: ", e)
+        raise e
