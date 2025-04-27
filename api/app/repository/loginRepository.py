@@ -5,24 +5,33 @@ from app.models.login import Login
 
 def getToken(token: int):
     try:
-        tkn = login.find_one(
-            {"token": token}
-        )
+        tkn = login.find_one({"token": token})
         if not tkn:
-            raise ValueError(f"Token [{tkn}] informado é inválido.")
+            raise ValueError(f"Token [{token}] informado é inválido.")
         return token
     except Exception as e:
-        print("[REPOSITORY] Erro inesperado: ", e)
+        print("[REPOSITORY] Erro inesperado no getToken: ", e)
         raise e
 
 
 def updateToken(usr: Login):
     try:
-        association = login.findOne(
-            {"email": usr["email"]}
+        association = login.find_one({"email": usr.email})
+        if not association:
+            raise ValueError(
+                f"Não foi possível atualizar o token para {usr.email}: Usuário não encontrado.")
+
+        result = login.update_one(
+            {"email": usr.email},
+            {"$set": {"token": usr.token}}
         )
-        if association not in usr["email"]:
-            raise ValueError(f"Não foi possível atualizar o token para {usr['email']}: Usuário não encontrado.")
+
+        if result.modified_count == 0:
+            raise ValueError(
+                f"Token não foi atualizado para {usr.email}. Talvez o token enviado seja o mesmo.")
+
+        return True
+
     except Exception as e:
-        print("[REPOSITORY] Erro inesperado: ", e)
+        print("[REPOSITORY] Erro inesperado no updateToken: ", e)
         raise e
