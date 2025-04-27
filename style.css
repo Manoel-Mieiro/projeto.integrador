@@ -19,33 +19,33 @@ body {
   background-color: var(--espeon-blue);
 }
 
-.form_main{
+.form_main,
+#form_login_card {
   background-color: var(--espeon-purple-light);
   padding: 20px;
   border-radius: 5px;
 }
 
-#register_form, #register_form h1 {
-  display: flex;
-  justify-content: center;
-  margin: 10px;
-  color: var(--espeon-blue);
-}
-
-.form-container, .form-container select{
+.form-container,
+.form-container select {
   width: 100%;
 }
 
-.form-container label{
+.form-container label {
   color: var(--espeon-blue);
-  font-weight: bold;  
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
-.form-container input, .form-container label, .form-container select {
+.form-container input,
+.form-container label,
+.form-container select {
   margin-bottom: 2px;
 }
 
-.form-container input, .form-container select, .btns {
+.form-container input,
+.form-container select,
+.btns {
   padding: 10px;
   border: none;
   border-radius: 2px;
@@ -63,8 +63,41 @@ body {
   font-size: 1em;
 }
 
-.btns, .underline_btn {
+.btns,
+.underline_btn {
   display: flex;
   justify-content: center;
-  margin: 8px auto; 
+  margin: 8px auto;
+}
+
+#register_form,
+#form_login_main,
+#register_form h1 {
+  margin: 10px;
+  color: var(--espeon-blue);
+}
+
+#form_login_header {
+  background-color: transparent;
+}
+
+#form_login {
+  color: var(--espeon-purple-light);
+  background-color: var(--espeon-purple-light);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#form_login_main h1,
+#register_form h1 {
+  text-align: center;
+}
+
+#form_login_main h1 {
+  color: var(--espeon-purple-light);
+}
+
+#espeon_image {
+  display: flex;
+  align-self: center;
 }
