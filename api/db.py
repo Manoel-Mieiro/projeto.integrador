@@ -12,6 +12,10 @@ collections = [COLLECTION, "users", "login"]
 
 client = MongoClient(MONGO_URI)
 database = client[DATABASE_NAME]
+collection = database[collections[0]]
+usersCollection = database[collections[1]]
+loginCollection = database[collections[2]]
+
 
 
 def showMongo():
