@@ -74,6 +74,15 @@ def updateUser(user_id: ObjectId, updatedUser: dict):
 
 def deleteUser(user_id: ObjectId):
     try:
+        usr = findOneUser(user_id=user_id)
+
+        login_result = login.delete_one({"email": usr["email"]})
+
+        if login_result.deleted_count == 0:
+            print(
+                f"[REPOSITORY]Aviso: Nenhum login encontrado para {usr['email']}")
+            raise e
+
         result = users.delete_one(
             {"_id": ObjectId(user_id)}
         )
