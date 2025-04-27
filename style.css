@@ -13,114 +13,39 @@
   box-sizing: border-box;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 html,
 body {
-  height: 150px;
-  max-height: 300px;
   font-family: Arial, sans-serif;
   background-color: var(--espeon-blue);
 }
 
-.main_card,
-.form_main {
-  background-color: var(--espeon-blue);
-  margin-bottom: 1px;
-  z-index: 1;
-}
-
-.main_card {
-  color: var(--espeon-purple-light);
-  display: grid;
-  justify-content: center;
-  width: 300px;
-}
-
-.description,
-.form_main {
-  display: flex;
-  justify-content: center;
-  margin: 2em;
-}
-
-.form_main {
-  width: 500px;
-  display: grid;
-  grid-template-columns: repeat(2, 3fr);
-  gap: 20px;
-  justify-content: center;
-  padding: 20px;
-  height: auto;
-  color: var(--espeon-purple-light);
-}
-
-.form-container {
+.form_main{
   background-color: var(--espeon-purple-light);
-  color: var(--espeon-blue);
   padding: 20px;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
-.form_main label {
-  align-self: flex-start;
-}
-
-.form_main input {
-  align-self: center;
-}
-
-.form_main input {
-  background-color: var(--espeon-blue);
-  border: none;
-  border-radius: 4px;
-  padding: 8px;
-  color: var(--espeon-red);
-  font-weight: bolder;
-  font-size: large;
-}
-
-.form_main input:focus {
-  outline: none;
-  border: 2px solid var(--espeon-purple-dark);
-  background-color: var(--espeon-blue);
-  opacity: 0.6;
-  color: var(--espeon-red);
-}
-
-.form_main input:-webkit-autofill {
-  background-color: var(--espeon-blue) !important;
-  -webkit-box-shadow: 0 0 0px 1000px var(--espeon-blue) inset !important;
-  -webkit-text-fill-color: var(--espeon-red) !important;
-  caret-color: var(--espeon-red) !important;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-.form_main label {
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.form_header {
-  display: grid;
-  grid-template-rows: 2fr 0.4fr;
-}
-
-.form_header h1 {
-  font-size: 30px;
-}
-
-.form_footer {
+#register_form, #register_form h1 {
   display: flex;
   justify-content: center;
-  padding: 20px;
+  margin: 10px;
+  color: var(--espeon-blue);
 }
 
-.btns {
+.form-container, .form-container select{
+  width: 100%;
+}
+
+.form-container label{
+  color: var(--espeon-blue);
+  font-weight: bold;  
+}
+
+.form-container input, .form-container label, .form-container select {
+  margin-bottom: 2px;
+}
+
+.form-container input, .form-container select, .btns {
   padding: 10px;
   border: none;
   border-radius: 2px;
@@ -128,7 +53,6 @@ body {
   color: var(--espeon-red);
   font-weight: bold;
   align-self: center;
-  margin: 4px;
 }
 
 .underline_btn {
@@ -139,59 +63,8 @@ body {
   font-size: 1em;
 }
 
-.selector{
+.btns, .underline_btn {
   display: flex;
-  justify-content: flex-start;
-  margin: 0 auto;  
-  width: 100%;
-  padding: 10px;
-  border-radius: 4px;
-}
-
-.selector, option{
-  background-color: var(--espeon-blue);
-  color: var(--espeon-red);
-  font-weight: bold;
-}
-
-#espeon_image {
-  height: 5rem;
-  justify-self: center;
-}
-
-#start,
-#stop {
-  background-color: var(--espeon-red);
-  color: var(--espeon-purple-light);
-  border: 1px;
-  border-radius: 2px;
-  font-weight: bold;
-}
-
-#stop {
-  background-color: var(--espeon-purple-dark);
-}
-
-#logo {
-}
-
-#login {
-}
-
-#register {
-}
-
-#register_form, .form_main{
-  height: 100px;
-  padding-bottom: 10px;
-  width: 288px;
-}
-
-#register_form, form{
-  margin-bottom: 5px;
-}
-
-#register_form, h1{
-  padding: 4px;
-  margin-bottom: 4px;
+  justify-content: center;
+  margin: 8px auto; 
 }
