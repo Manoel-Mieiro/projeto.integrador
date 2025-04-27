@@ -14,7 +14,7 @@ def getToken(token):
         raise e
 
 
-def updateToken(usr: Login):
+def updateToken(usr: Login, newToken):
     try:
         association = login.find_one({"email": usr.email})
         if not association:
@@ -23,7 +23,7 @@ def updateToken(usr: Login):
 
         result = login.update_one(
             {"email": usr.email},
-            {"$set": {"token": usr.token}}
+            {"$set": {"token": newToken}}
         )
 
         if result.modified_count == 0:
