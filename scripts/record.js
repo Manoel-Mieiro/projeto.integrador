@@ -28,7 +28,8 @@ async function stopRecording() {
     message: `${user} stopped recording`,
   });
 
-  chrome.storage.local.remove(["state", "student", "meet"], () => {
+  // chrome.storage.local.remove(["state", "student", "meet"], () => {
+  chrome.storage.local.remove(["state", "student"], () => {
     console.log("State removed from storage");
     alert("Recording stopped and state removed from storage.");
     window.location.href = "redirect.html";
