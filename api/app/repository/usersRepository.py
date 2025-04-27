@@ -1,6 +1,7 @@
 from bson import ObjectId
 from db import usersCollection as users
 from app.models.users import Users
+from db import loginCollection as login
 
 
 def findAllUsers():
@@ -24,6 +25,16 @@ def createUser(data: Users):
         print("\n[REPOSITORY]Criando user:", data, "\n")
         result = users.insert_one(data.to_dict())
         data._id = result.inserted_id
+
+        if not data._id:
+            raise Exception("Erro ao inserir usuário no banco.")
+
+        login.insert_one(
+            {
+                "email": data.email,
+                "token": None
+            }
+        )
         return data.to_dict()
     except Exception as e:
         print("[REPOSITORY]Erro ao criar user:", e)
