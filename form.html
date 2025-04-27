@@ -7,21 +7,21 @@
     <link rel="stylesheet" href="style.css" />
     <title>Formulário</title>
   </head>
-  <body>
-    <main class="form_main">
+  <body id="form_login_main">
+    <main class="form_main" id="form_login_header">
       <div class="form_header">
-        <h1>FORMULÁRIO DE INSCRIÇÃO</h1>
+        <h1>BEM VINDO!</h1>
         <img id="espeon_image" src="images/image 1.png" alt="espeon">
       </div>
-    <div id="form" class="form-container">
-      <form>
-        <label for="email">USUÁRIO</label><br />
+    <div id="form_login_card" class="form-container">
+      <form class="forms" id="form_login">
+        <label for="email">USUÁRIO</label><br /><br />
         <input type="email" id="email" name="email" /><br /><br />
 
-        <label for="meet">AULA</label><br />
-        <input type="url" id="meet" name="meet" /><br /><br />
+        <!-- <label for="meet">AULA</label><br />
+        <input type="url" id="meet" name="meet" /><br /><br /> -->
 
-        <input id="login" class="btns" type="submit" value="Enviar" />
+        <input id="login" class="btns" type="submit" value="Entrar" />
       </form>
       <div class="form_footer">
         <button id="register" class="underline_btn">cadastrar-se</button>
