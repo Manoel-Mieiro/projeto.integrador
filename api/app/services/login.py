@@ -3,19 +3,35 @@ import string
 import random
 
 
-def getToken(token: str):
+def getToken(usr, userToken):
     try:
-        return login.getToken(token)
+        fetched = login.getToken(usr=usr)
+        if (fetched.token != userToken):
+            raise ValueError("Invalid token provided.")
+
+        print("[SERVICE]Provided Token matches the one assigned to the user")
+        return True
     except Exception as e:
         print("[SERVICE]Error fetching token:", e)
         raise e
 
 
-def updateToken(usr, newToken: str):
+def updateToken(usr):
     try:
-        return login.updateToken(usr, newToken=newToken)
+        tkn = generateToken()
+        return login.updateToken(usr, newToken=tkn)
     except Exception as e:
         print("[SERVICE]Error updating user token:", e)
+        raise e
+
+
+def seedLogin(usr):
+    try:
+        print("[SERVICE]Generating token...")
+        tkn = generateToken()
+        return login.seedLogin(usr=usr, token=tkn)
+    except Exception as e:
+        print("[SERVICE]Error assigning token to user:", e)
         raise e
 
 
@@ -26,8 +42,9 @@ def deleteToken(usr):
         print("[SERVICE]Error deleting user token collection:", e)
         raise e
 
+
 def generateToken():
     # contém todos os números de 0 a 9
-    chars = string.digits 
+    chars = string.digits
 
     return ''.join(random.choice(chars) for i in range(6))

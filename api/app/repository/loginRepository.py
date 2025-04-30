@@ -3,17 +3,26 @@ from db import loginCollection as login
 from app.models.login import Login
 
 
-def getToken(token: str):
-    try:
-        tkn = login.find_one({"token": token})
-        if not tkn:
-            return False
 
+def seedLogin(usr, token):
+    try:
+        print("\n[REPOSITORY]Atribuindo token ao usuário:", data, "\n")
+        login.insert_one(Login(usr, token=token))
         return True
     except Exception as e:
         print("[REPOSITORY] Erro inesperado no getToken: ", e)
         raise e
 
+def getToken(usr):
+    try:
+        data = login.find_one({"email": usr})
+        if not data:
+            return False
+    
+        return True
+    except Exception as e:
+        print("[REPOSITORY] Erro inesperado no getToken: ", e)
+        raise e
 
 def updateToken(usr: Login, newToken: str):
     try:
