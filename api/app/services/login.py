@@ -5,7 +5,7 @@ import random
 
 def getToken(usr, userToken):
     try:
-        fetched = login.getToken(usr=usr)
+        fetched = login.getToken(usr=usr["email"])
         if (fetched.token != userToken):
             raise ValueError("Invalid token provided.")
 
@@ -19,7 +19,7 @@ def getToken(usr, userToken):
 def updateToken(usr):
     try:
         tkn = generateToken()
-        return login.updateToken(usr, newToken=tkn)
+        return login.updateToken(usr["email"], newToken=tkn)
     except Exception as e:
         print("[SERVICE]Error updating user token:", e)
         raise e
@@ -29,7 +29,7 @@ def seedLogin(usr):
     try:
         print("[SERVICE]Generating token...")
         tkn = generateToken()
-        return login.seedLogin(usr=usr, token=tkn)
+        return login.seedLogin(usr=usr["email"], token=tkn)
     except Exception as e:
         print("[SERVICE]Error assigning token to user:", e)
         raise e
@@ -37,7 +37,7 @@ def seedLogin(usr):
 
 def deleteToken(usr):
     try:
-        return login.deleteLogin(usr)
+        return login.deleteLogin(usr["email"])
     except Exception as e:
         print("[SERVICE]Error deleting user token collection:", e)
         raise e

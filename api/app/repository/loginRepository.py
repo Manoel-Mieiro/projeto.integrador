@@ -3,7 +3,6 @@ from db import loginCollection as login
 from app.models.login import Login
 
 
-
 def seedLogin(usr, token):
     try:
         print("\n[REPOSITORY]Atribuindo token ao usuário:", data, "\n")
@@ -13,37 +12,38 @@ def seedLogin(usr, token):
         print("[REPOSITORY] Erro inesperado no getToken: ", e)
         raise e
 
+
 def getToken(usr):
     try:
         data = login.find_one({"email": usr})
         if not data:
-            return False
-    
-        return True
+            return None
+
+        return data
     except Exception as e:
         print("[REPOSITORY] Erro inesperado no getToken: ", e)
         raise e
 
-def updateToken(usr: Login, newToken: str):
+
+def updateToken(email: str, newToken: str):
     try:
-        association = login.find_one({"email": usr.email})
+        association = login.find_one({"email": email})
         if not association:
             raise ValueError(
-                f"Não foi possível atualizar o token para {usr.email}: Usuário não encontrado.")
+                f"Não foi possível atualizar o token para {email}: Usuário não encontrado.")
 
         result = login.update_one(
-            {"email": usr.email},
+            {"email": email},
             {"$set": {"token": newToken}}
         )
 
         if result.modified_count == 0:
             raise ValueError(
-                f"Token não foi atualizado para {usr.email}. Talvez o token enviado seja o mesmo.")
+                f"Token não foi atualizado para {email}. Talvez o token enviado seja o mesmo.")
 
-        return True
-
+        return newToken
     except Exception as e:
-        print("[REPOSITORY] Erro inesperado no updateToken: ", e)
+        print("[REPOSITORY]Erro ao atualizar token:", e)
         raise e
 
 

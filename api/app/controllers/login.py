@@ -10,17 +10,17 @@ def getToken(usr, userToken):
         raise e
 
 
-def updateToken(id_user, updatedUser):
+def updateToken(usr):
     try:
-        return loginService.updateUser(id_user, updatedUser)
+        return loginService.updateToken(usr=usr)
     except Exception as e:
-        print("[CONTROLLER]Error updationg user:", e)
+        print("[CONTROLLER]Error updating user:", e)
         raise e
 
 
 def deleteUser(id_user):
     try:
-        return loginService.deleteUser(id_user)
+        return loginService.deleteToken(id_user)
     except Exception as e:
         print("[CONTROLLER]Error deleting user:", e)
         raise e
