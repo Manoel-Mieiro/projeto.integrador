@@ -1,3 +1,6 @@
+import api from "./api.js";
+import { CONFIG } from "./config.js";
+
 const form = document.getElementById("form");
 const register = document.getElementById("register");
 
@@ -15,6 +18,7 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const student = document.getElementById("email").value;
+  api.callAPI("PATCH", `${CONFIG.API_BASE_URL}${CONFIG.LOGIN_ENDPOINT}`, student)
   // const meet = document.getElementById("meet").value;
 
   chrome.storage.local.set(
