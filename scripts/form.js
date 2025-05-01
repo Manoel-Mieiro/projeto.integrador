@@ -4,15 +4,30 @@ import { CONFIG } from "./config.js";
 const loginForm = document.getElementById("form_login");
 const tokenForm = document.getElementById("token_submit");
 const fetchedUser = document.getElementById("fetchedUser");
-const register = document.getElementById("register");
+const footerButton = document.getElementById("register");
 
-register.addEventListener("click", () => {
-  chrome.storage.local.set({ state: "register" }, () => {
-    chrome.runtime.sendMessage({
-      type: "console",
-      message: "Redirecionando para a página de registro",
-    });
-    window.location.href = "register.html";
+footerButton.addEventListener("click", () => {
+  chrome.storage.local.get(["hasToken"], (value) => {
+    if (value.hasToken === true) {
+      loginForm.style.display = "none";
+      tokenForm.style.display = "block";
+      footerButton.innerText = "Cancelar";
+      footerButton.style.color = "red";
+
+      footerButton.onclick = () => {
+        chrome.storage.local.remove("hasToken", () => {
+          window.location.reload();
+        });
+      };
+    } else {
+      chrome.storage.local.set({ state: "register" }, () => {
+        chrome.runtime.sendMessage({
+          type: "console",
+          message: "Redirecionando para a página de registro",
+        });
+        window.location.href = "register.html";
+      });
+    }
   });
 });
 
@@ -27,15 +42,19 @@ loginForm.addEventListener("submit", async (event) => {
       { email: email }
     );
 
-    chrome.runtime.sendMessage({
-      type: "console",
-      message: `Token gerado foi: ${response}`,
-    });
-
     if (response && response.newToken) {
-      fetchedUser.innerHTML = email;
-      tokenForm.style.display = "block";
-      loginForm.style.display = "none";
+      chrome.storage.local.get(["hasToken"], (value) => {
+        if (value.hasToken === true) {
+          fetchedUser.innerHTML = email;
+          tokenForm.style.display = "block";
+          loginForm.style.display = "none";
+        } else {
+          chrome.runtime.sendMessage({
+            type: "console",
+            message: `User have no token`,
+          });
+        }
+      });
 
       chrome.storage.local.set({ user: email, token: response.newToken });
     } else {
@@ -45,6 +64,4 @@ loginForm.addEventListener("submit", async (event) => {
     console.error("Erro ao buscar token:", error);
     alert("Erro ao conectar com o servidor.");
   }
-
-  // const meet = document.getElementById("meet").value;
 });
