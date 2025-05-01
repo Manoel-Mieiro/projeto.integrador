@@ -85,7 +85,12 @@ loginForm.addEventListener("submit", async (event) => {
 tokenForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const email = await getFromStorage("user");
-  const token = await getFromStorage("token");
+  const token = document.getElementById("tokenValue").value;
+
+  chrome.runtime.sendMessage({
+    type: "console",
+    message: `Token informado no input: \n${token}`,
+  });
 
   try {
     const response = await api.callAPI(
