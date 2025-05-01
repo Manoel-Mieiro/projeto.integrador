@@ -101,3 +101,9 @@ body {
   display: flex;
   align-self: center;
 }
+
+#exit{
+  color: var(--espeon-red);
+  font-weight: bold;
+  margin: 10px;
+}
