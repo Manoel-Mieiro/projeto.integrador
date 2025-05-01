@@ -1,9 +1,10 @@
 import record from "./record.js";
 import button from "./button.js";
+import getFromStorage from "./storage.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("start");
-
+  const persist = getFromStorage("auth")
   if (!btn) {
     console.error("Botão não encontrado");
     return;

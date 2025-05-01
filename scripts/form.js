@@ -87,8 +87,8 @@ tokenForm.addEventListener("submit", async (event) => {
         type: "console",
         message: `${email} acessou a extensão com sucesso`,
       });
-      chrome.storage.local.set({ auth: true });
-      window.location.href = "popup.html";
+      chrome.storage.local.set({ state: "logged" });
+      window.location.href = "redirect.html";
     } else {
       chrome.runtime.sendMessage({
         type: "console",
