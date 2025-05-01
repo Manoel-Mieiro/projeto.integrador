@@ -11,7 +11,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   chrome.storage.local.get(["hasToken", "user"], (value) => {
     if (value.hasToken === true && value.user) {
       loginForm.style.display = "none";
-      footerButton.style.display = "none";
+      footerButton.textContent = "voltar";
+      Object.assign(footerButton.style, {
+        color: "#e73752",
+        fontWeight: "bold",
+        border: "none",
+      });
       fetchedUser.innerHTML = value.user;
       tokenForm.style.display = "block";
     } else {
@@ -56,6 +61,12 @@ loginForm.addEventListener("submit", async (event) => {
       fetchedUser.innerHTML = email;
       tokenForm.style.display = "block";
       loginForm.style.display = "none";
+      footerButton.textContent = "voltar";
+      Object.assign(footerButton.style, {
+        color: "#e73752",
+        fontWeight: "bold",
+        border: "none",
+      });
 
       chrome.storage.local.set({
         user: email,
