@@ -1,7 +1,9 @@
 import api from "./api.js";
 import { CONFIG } from "./config.js";
 
-const form = document.getElementById("form");
+const loginForm = document.getElementById("form_login");
+const tokenForm = document.getElementById("token_submit");
+const fetchedUser = document.getElementById("fetchedUser");
 const register = document.getElementById("register");
 
 register.addEventListener("click", () => {
@@ -14,19 +16,35 @@ register.addEventListener("click", () => {
   });
 });
 
-form.addEventListener("submit", (event) => {
+loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const student = document.getElementById("email").value;
-  api.callAPI("PATCH", `${CONFIG.API_BASE_URL}${CONFIG.LOGIN_ENDPOINT}`, student)
-  // const meet = document.getElementById("meet").value;
+  const email = document.getElementById("email").value;
+  try {
+    const response = await api.callAPI(
+      "PATCH",
+      `${CONFIG.API_BASE_URL}${CONFIG.LOGIN_ENDPOINT}`,
+      { email: email }
+    );
 
-  chrome.storage.local.set(
-    // { student: student, meet: meet, state: "logged" },
-    { student: student, state: "logged" },
-    () => {
-      alert("Formulário enviado com sucesso!");
-      window.location.href = "popup.html";
+    chrome.runtime.sendMessage({
+      type: "console",
+      message: `Token gerado foi: ${response}`,
+    });
+
+    if (response && response.newToken) {
+      fetchedUser.innerHTML = email;
+      tokenForm.style.display = "block";
+      loginForm.style.display = "none";
+
+      chrome.storage.local.set({ user: email, token: response.newToken });
+    } else {
+      alert("Token não recebido. Verifique o email informado.");
     }
-  );
+  } catch (error) {
+    console.error("Erro ao buscar token:", error);
+    alert("Erro ao conectar com o servidor.");
+  }
+
+  // const meet = document.getElementById("meet").value;
 });

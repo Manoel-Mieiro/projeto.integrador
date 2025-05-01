@@ -19,10 +19,12 @@ def getToken(usr, userToken):
 def updateToken(usr):
     try:
         tkn = generateToken()
-        return login.updateToken(usr["email"], newToken=tkn)
+        print("[SERVICE]Token is: ", tkn)
+        login.updateToken(usr["email"], newToken=tkn)
+        return {"newToken": tkn}
     except Exception as e:
         print("[SERVICE]Error updating user token:", e)
-        raise e
+        raise
 
 
 def seedLogin(usr):
