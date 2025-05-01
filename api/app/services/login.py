@@ -5,8 +5,8 @@ import random
 
 def getToken(usr, userToken):
     try:
-        fetched = login.getToken(usr=usr["email"])
-        if (fetched.token != userToken):
+        fetched = login.getToken(usr=usr)
+        if not fetched or fetched.get("token") != userToken:
             raise ValueError("Invalid token provided.")
 
         print("[SERVICE]Provided Token matches the one assigned to the user")

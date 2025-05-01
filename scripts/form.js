@@ -1,4 +1,5 @@
 import api from "./api.js";
+import getFromStorage from "./storage.js";
 import { CONFIG } from "./config.js";
 
 const loginForm = document.getElementById("form_login");
@@ -6,14 +7,23 @@ const tokenForm = document.getElementById("token_submit");
 const fetchedUser = document.getElementById("fetchedUser");
 const footerButton = document.getElementById("register");
 
+document.addEventListener("DOMContentLoaded", async () => {
+  chrome.storage.local.get(["hasToken", "user"], (value) => {
+    if (value.hasToken === true && value.user) {
+      loginForm.style.display = "none";
+      footerButton.style.display = "none";
+      fetchedUser.innerHTML = value.user;
+      tokenForm.style.display = "block";
+    } else {
+      loginForm.style.display = "block";
+      tokenForm.style.display = "none";
+    }
+  });
+});
+
 footerButton.addEventListener("click", () => {
   chrome.storage.local.get(["hasToken"], (value) => {
     if (value.hasToken === true) {
-      loginForm.style.display = "none";
-      tokenForm.style.display = "block";
-      footerButton.innerText = "Cancelar";
-      footerButton.style.color = "red";
-
       footerButton.onclick = () => {
         chrome.storage.local.remove("hasToken", () => {
           window.location.reload();
@@ -43,25 +53,54 @@ loginForm.addEventListener("submit", async (event) => {
     );
 
     if (response && response.newToken) {
-      chrome.storage.local.get(["hasToken"], (value) => {
-        if (value.hasToken === true) {
-          fetchedUser.innerHTML = email;
-          tokenForm.style.display = "block";
-          loginForm.style.display = "none";
-        } else {
-          chrome.runtime.sendMessage({
-            type: "console",
-            message: `User have no token`,
-          });
-        }
-      });
+      fetchedUser.innerHTML = email;
+      tokenForm.style.display = "block";
+      loginForm.style.display = "none";
 
-      chrome.storage.local.set({ user: email, token: response.newToken });
+      chrome.storage.local.set({
+        user: email,
+        token: response.newToken,
+        hasToken: true,
+      });
     } else {
       alert("Token não recebido. Verifique o email informado.");
     }
   } catch (error) {
     console.error("Erro ao buscar token:", error);
     alert("Erro ao conectar com o servidor.");
+  }
+});
+
+tokenForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const email = await getFromStorage("user");
+  const token = await getFromStorage("token");
+
+  try {
+    const response = await api.callAPI(
+      "GET",
+      `${CONFIG.API_BASE_URL}${CONFIG.LOGIN_ENDPOINT}?usr=${email}&token=${token}`
+    );
+
+    if (response) {
+      chrome.runtime.sendMessage({
+        type: "console",
+        message: `${email} acessou a extensão com sucesso`,
+      });
+      chrome.storage.local.set({ auth: true });
+      window.location.href = "popup.html";
+    } else {
+      chrome.runtime.sendMessage({
+        type: "console",
+        message: "Não foi possível acessar o servidor",
+      });
+      alert("Não foi possível acessar o servidor");
+    }
+  } catch (error) {
+    chrome.runtime.sendMessage({
+      type: "console",
+      message: `Token/usuário informado incorreto(s): \n${error}`,
+    });
+    alert("Token Inválido");
   }
 });
