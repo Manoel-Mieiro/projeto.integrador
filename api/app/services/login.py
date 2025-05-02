@@ -22,7 +22,8 @@ def updateToken(usr):
         tkn = generateToken()
         print("[SERVICE]Token is: ", tkn)
         login.updateToken(usr["email"], newToken=tkn)
-        sendMail(usr, tkn)
+        sendMail(usr["email"], tkn)
+
         return {"newToken": tkn}
     except Exception as e:
         print("[SERVICE]Error updating user token:", e)
