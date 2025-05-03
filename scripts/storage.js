@@ -1,6 +1,6 @@
 function getFromStorage(key) {
   return new Promise((resolve) => {
-    chrome.storage.local.get([key], (result) => {
+    chrome.storage.session.get([key], (result) => {
       resolve(result[key]);
     });
   });

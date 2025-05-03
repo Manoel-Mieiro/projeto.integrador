@@ -1,4 +1,4 @@
-import api from "./api";
+import api from "./api.js";
 import { CONFIG } from "./config.js";
 
 // É usado o DOMContentLoaded para garantir que o DOM esteja completamente carregado antes de adicionar o evento de clique ao botão "back". Isso evita erros caso o script seja executado antes do carregamento completo do DOM.
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (back) {
     back.addEventListener("click", () => {
-      chrome.storage.local.remove("state", () => {
+      chrome.storage.session.remove("state", () => {
         chrome.runtime.sendMessage({
           type: "console",
           message: "Voltar para a página inicial",
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-document.addEventListener("submit", () => {
+document.addEventListener("submit", async() => {
   const email = document.getElementById("email").value;
   const role = document.getElementById("roles").value;
 
@@ -32,7 +32,7 @@ document.addEventListener("submit", () => {
     message: `Cadastrando usuário [${role}]${email}`,
   });
 
-  const response = api.callAPI(
+  const response = await api.callAPI(
     "GET",
     `${CONFIG.API_BASE_URL}${CONFIG.USERS_ENDPOINT}`,
     {
@@ -42,7 +42,7 @@ document.addEventListener("submit", () => {
   );
 
   if (response) {
-    chrome.storage.local.remove("state", () => {
+    chrome.storage.session.remove("state", () => {
       alert("Cadastro Concluído!");
       setTimeout(() => {
         window.location.href = "redirect.html";

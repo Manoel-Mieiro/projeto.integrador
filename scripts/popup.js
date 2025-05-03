@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const isRecording = btn.id !== "start";
 
-    await chrome.storage.local.set({ recording: isRecording });
+    await chrome.storage.session.set({ recording: isRecording });
 
     if (!isRecording) {
       await record.stopRecording();
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 exit.addEventListener("click", () => {
-  chrome.storage.local.clear(function () {
+  chrome.storage.session.clear(function () {
     var error = chrome.runtime.lastError;
     if (error) {
       console.error(error);

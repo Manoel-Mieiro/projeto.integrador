@@ -8,7 +8,7 @@ const fetchedUser = document.getElementById("fetchedUser");
 const footerButton = document.getElementById("register");
 
 document.addEventListener("DOMContentLoaded", async () => {
-  chrome.storage.local.get(["hasToken", "user"], (value) => {
+  chrome.storage.session.get(["hasToken", "user"], (value) => {
     if (value.hasToken === true && value.user) {
       loginForm.style.display = "none";
       footerButton.textContent = "voltar";
@@ -27,15 +27,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 footerButton.addEventListener("click", () => {
-  chrome.storage.local.get(["hasToken"], (value) => {
+  chrome.storage.session.get(["hasToken"], (value) => {
     if (value.hasToken === true) {
       footerButton.onclick = () => {
-        chrome.storage.local.remove("hasToken", () => {
+        chrome.storage.session.remove("hasToken", () => {
           window.location.reload();
         });
       };
     } else {
-      chrome.storage.local.set({ state: "register" }, () => {
+      chrome.storage.session.set({ state: "register" }, () => {
         chrome.runtime.sendMessage({
           type: "console",
           message: "Redirecionando para a página de registro",
@@ -68,7 +68,7 @@ loginForm.addEventListener("submit", async (event) => {
         border: "none",
       });
 
-      chrome.storage.local.set({
+      chrome.storage.session.set({
         user: email,
         token: response.newToken,
         hasToken: true,
@@ -103,7 +103,7 @@ tokenForm.addEventListener("submit", async (event) => {
         type: "console",
         message: `${email} acessou a extensão com sucesso`,
       });
-      chrome.storage.local.set({ state: "logged" });
+      chrome.storage.session.set({ state: "logged" });
       window.location.href = "redirect.html";
     } else {
       chrome.runtime.sendMessage({
