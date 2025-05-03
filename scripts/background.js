@@ -5,7 +5,7 @@ import { CONFIG } from "./config.js";
 const teamsURL = "https://teams.microsoft.com/v2/";
 
 async function shouldRecord() {
-  const { recording } = await chrome.storage.local.get("recording");
+  const { recording } = await chrome.storage.session.get("recording");
   return recording;
 }
 
