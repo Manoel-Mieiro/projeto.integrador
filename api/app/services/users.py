@@ -11,15 +11,17 @@ def findAllUsers():
 
 def createUser(data):
     try:
+        fetched = findOneUser(data.email)
+        if (fetched): raise Exception("Usuário já existe!") 
         return users.createUser(data)
     except Exception as e:
         print("[SERVICE]Error creating user:", e)
         raise e
 
 
-def findOneUser(id):
+def findOneUser(email):
     try:
-        return users.findOneUser(id)
+        return users.findOneUser(email)
     except Exception as e:
         print("[SERVICE]Error fetching user:", e)
         raise e
