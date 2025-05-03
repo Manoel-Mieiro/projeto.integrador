@@ -120,3 +120,17 @@ tokenForm.addEventListener("submit", async (event) => {
     alert("Token Inválido");
   }
 });
+
+// ainda não usada, pretendo modificar o botão para entradas incorretas
+function resendToken(){
+  button = tokenForm.getElementById("auth")
+  button.textContent = "Reenviar"
+
+  button.addEventListener("submit", async() => {
+    const response = await api.callAPI(
+      "GET",
+      `${CONFIG.API_BASE_URL}${CONFIG.LOGIN_ENDPOINT}?usr=${email}&token=${token}`
+    );
+    return response
+  })
+}
