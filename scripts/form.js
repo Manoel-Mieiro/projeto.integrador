@@ -108,9 +108,9 @@ tokenForm.addEventListener("submit", async (event) => {
     } else {
       chrome.runtime.sendMessage({
         type: "console",
-        message: "Não foi possível acessar o servidor",
+        message: "Não foi possível acessar o servidor: Token inválido",
       });
-      alert("Não foi possível acessar o servidor");
+      alert("Token Inválido");
     }
   } catch (error) {
     chrome.runtime.sendMessage({

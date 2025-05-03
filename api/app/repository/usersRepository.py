@@ -32,7 +32,8 @@ def createUser(data: Users):
         login.insert_one(
             {
                 "email": data.email,
-                "token": None
+                "token": None,
+                "createdAt": None
             }
         )
         return data.to_dict()

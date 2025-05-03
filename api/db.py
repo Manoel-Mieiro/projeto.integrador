@@ -17,7 +17,6 @@ usersCollection = database[collections[1]]
 loginCollection = database[collections[2]]
 
 
-
 def showMongo():
     return {
         "MONGO": MONGO_URI,

@@ -1,14 +1,22 @@
 import app.repository.loginRepository as login
 import string
 import random
+import datetime
 from app.services.email import sendMail
 
 
 def getToken(usr, userToken):
     try:
         fetched = login.getToken(usr=usr)
-        if not fetched or fetched.get("token") != userToken:
+        print("Fetched token raw:", fetched)
+        print("Type:", type(fetched))
+
+        if not fetched or fetched.token != userToken:
             raise ValueError("Invalid token provided.")
+
+        print(f"Validating if token already expired")
+        if validateToken(fetched.createdAt):
+            return False
 
         print("[SERVICE]Provided Token matches the one assigned to the user")
         return True
@@ -20,8 +28,10 @@ def getToken(usr, userToken):
 def updateToken(usr):
     try:
         tkn = generateToken()
+        generatedAt = datetime.datetime.now()
         print("[SERVICE]Token is: ", tkn)
-        login.updateToken(usr["email"], newToken=tkn)
+        login.updateToken(usr["email"], newToken=tkn,
+                          createdAt=generatedAt.isoformat())
         sendMail(usr["email"], tkn)
 
         return {"newToken": tkn}
@@ -53,3 +63,9 @@ def generateToken():
     chars = string.digits
 
     return ''.join(random.choice(chars) for i in range(6))
+
+
+def validateToken(created_at_str):
+    lifespan_seconds = 180
+    created_at = datetime.datetime.fromisoformat(created_at_str)
+    return datetime.datetime.now() > created_at + datetime.timedelta(seconds=lifespan_seconds)

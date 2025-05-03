@@ -5,7 +5,7 @@ from app.models.login import Login
 
 def seedLogin(usr, token):
     try:
-        print("\n[REPOSITORY]Atribuindo token ao usuário:", data, "\n")
+        print("\n[REPOSITORY]Atribuindo token ao usuário:", usr, "\n")
         login.insert_one(Login(usr, token=token))
         return True
     except Exception as e:
@@ -19,13 +19,13 @@ def getToken(usr):
         if not data:
             return None
 
-        return data
+        return Login.from_dict(data)
     except Exception as e:
         print("[REPOSITORY] Erro inesperado no getToken: ", e)
         raise e
 
 
-def updateToken(email: str, newToken: str):
+def updateToken(email: str, newToken: str, createdAt):
     try:
         association = login.find_one({"email": email})
         if not association:
@@ -34,7 +34,7 @@ def updateToken(email: str, newToken: str):
 
         result = login.update_one(
             {"email": email},
-            {"$set": {"token": newToken}}
+            {"$set": {"token": newToken, "createdAt": createdAt}}
         )
 
         if result.modified_count == 0:
