@@ -23,32 +23,41 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-document.addEventListener("submit", async () => {
+document.addEventListener("submit", async (event) => {
+  event.preventDefault();
   const email = document.getElementById("email").value;
   const role = document.getElementById("roles").value;
 
-  chrome.runtime.sendMessage({
-    type: "console",
-    message: `Cadastrando usuário [${role}]${email}`,
-  });
+  if (!email || !role) {
+    alert("Por favor, preencha todos os campos.");
+    return;
+  }
+  try {
+    const response = await api.callAPI(
+      "POST",
+      `${CONFIG.API_BASE_URL}${CONFIG.USERS_ENDPOINT}`,
+      {
+        email: email,
+        role: role,
+      }
+    );
 
-  const response = await api.callAPI(
-    "POST",
-    `${CONFIG.API_BASE_URL}${CONFIG.USERS_ENDPOINT}`,
-    {
-      email: email,
-      role: role,
+    if (response) {
+      chrome.storage.session.remove("state", () => {});
+      alert("Cadastro Concluído!");
+      window.location.href = "redirect.html";
+    } else {
+      chrome.runtime.sendMessage({
+        type: "console",
+        message: `Ocorreu um erro inesperado ao chamar a API\n Eis a response: ${response}`,
+      });
+
+      alert("Ocorreu um erro ao chamar o servidor!");
     }
-  );
-
-  if (response) {
-    chrome.storage.session.remove("state", () => {});
-    alert("Cadastro Concluído!");
-    window.location.href = "redirect.html";
-  } else {
+  } catch (error) {
     chrome.runtime.sendMessage({
       type: "console",
-      message: `Ocorreu um erro inesperado ao chamar a API\n Eis a response: ${response}`,
+      message: `Erro ao chamar a API: ${error.message}`,
     });
 
     alert("Ocorreu um erro ao chamar o servidor!");
