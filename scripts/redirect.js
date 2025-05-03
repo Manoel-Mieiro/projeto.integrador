@@ -1,4 +1,4 @@
-chrome.storage.local.get(["state"], (result) => {
+chrome.storage.session.get(["state"], (result) => {
     if (result.state === "logged") {
       window.location.href = "popup.html";
     } else {
