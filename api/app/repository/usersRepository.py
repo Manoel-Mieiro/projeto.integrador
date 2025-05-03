@@ -42,14 +42,13 @@ def createUser(data: Users):
         raise e
 
 
-def findOneUser(user_id: ObjectId):
+def findOneUser(email):
     try:
         user_data = users.find_one(
-            {"_id": ObjectId(user_id)}
-
+            {"email": email}
         )
         if not user_data:
-            raise ValueError(f"Nenhum usuário encontrado com o id {user_id}")
+            return None
 
         return Users.from_dict(user_data).to_dict()
     except Exception as e:

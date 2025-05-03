@@ -59,7 +59,6 @@ document.addEventListener("submit", async (event) => {
       type: "console",
       message: `Erro ao chamar a API: ${error.message}`,
     });
-
-    alert("Ocorreu um erro ao chamar o servidor!");
+    alert(error.message);
   }
 });
