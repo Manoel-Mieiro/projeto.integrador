@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-document.addEventListener("submit", async() => {
+document.addEventListener("submit", async () => {
   const email = document.getElementById("email").value;
   const role = document.getElementById("roles").value;
 
@@ -33,7 +33,7 @@ document.addEventListener("submit", async() => {
   });
 
   const response = await api.callAPI(
-    "GET",
+    "POST",
     `${CONFIG.API_BASE_URL}${CONFIG.USERS_ENDPOINT}`,
     {
       email: email,
@@ -42,16 +42,13 @@ document.addEventListener("submit", async() => {
   );
 
   if (response) {
-    chrome.storage.session.remove("state", () => {
-      alert("Cadastro Concluído!");
-      setTimeout(() => {
-        window.location.href = "redirect.html";
-      }, 3000);
-    });
+    chrome.storage.session.remove("state", () => {});
+    alert("Cadastro Concluído!");
+    window.location.href = "redirect.html";
   } else {
     chrome.runtime.sendMessage({
       type: "console",
-      message: `Ocorreu um erro inesperado ao chamar a API`,
+      message: `Ocorreu um erro inesperado ao chamar a API\n Eis a response: ${response}`,
     });
 
     alert("Ocorreu um erro ao chamar o servidor!");
