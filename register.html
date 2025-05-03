@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="scripts/register.js"></script>
+    <title>Sign Up</title>
+  </head>
+  <body id="register_form">
+    <main class="form_main" id="register_form">
+      <div class="form_header">
+        <h1>CADASTRO</h1>
+        <div id="form" class="form-container">
+          <form class="forms" id="register_form">
+            <label for="email">EMAIL</label><br /><br />
+            <input type="email" id="email" name="email" /><br /><br />
+
+            <label for="role">CARGO</label><br /><br />
+            <select name="roles" id="roles" class="selector">
+              <option value="student">Estudante</option>
+              <option value="educator">Docente</option>
+            </select><br /><br />
+
+            <input id="register" class="btns" type="submit" value="Cadastrar" />
+          </form>
+          <button id="back" class="underline_btn">voltar</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,9 +1,10 @@
 import record from "./record.js";
 import button from "./button.js";
 
+const exit = document.getElementById("exit");
+
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("start");
-
   if (!btn) {
     console.error("Botão não encontrado");
     return;
@@ -28,4 +29,14 @@ document.addEventListener("DOMContentLoaded", () => {
       await record.recordTabs();
     }
   });
+});
+
+exit.addEventListener("click", () => {
+  chrome.storage.local.clear(function () {
+    var error = chrome.runtime.lastError;
+    if (error) {
+      console.error(error);
+    }
+  });
+  window.location.href = "redirect.html";
 });

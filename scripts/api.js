@@ -10,15 +10,19 @@ async function callAPI(method, server, payload) {
     });
   } catch (error) {
     console.log("Error in CallAPI:", error);
+    return null;
   }
 
   if (response && response.ok) {
-    console.log("API call successful:", await response.json());
+    const data = await response.json();
+    console.log("API call successful:", data);
+    return data; 
   } else {
     console.error(
       "API call failed:",
       response ? response.status : "No response"
     );
+    return null;
   }
 }
 
