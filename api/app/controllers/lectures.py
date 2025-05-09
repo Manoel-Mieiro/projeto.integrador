@@ -40,7 +40,7 @@ def updateLecture(_id, updatedLecture):
     try:
         return lectureService.updateLecture(_id, updatedLecture)
     except Exception as e:
-        print("[CONTROLLER]Error updationg lecture:", e)
+        print("[CONTROLLER]Error updating lecture:", e)
         raise e
 
 

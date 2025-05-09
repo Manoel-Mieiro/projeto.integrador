@@ -64,26 +64,19 @@ def updateLecture(_id: ObjectId, updatedLecture: dict):
         raise e
 
 
-def deleteLecture(_id: ObjectId):
+def deleteLecture(_id: str):
     try:
-        lecture = findOneLecture(_id)
+        objectId = ObjectId(_id)
+        lecture = lectures.find_one({"_id": objectId})
 
-        lectures_result = lectures.delete_one({"_id": lecture["_id"]})
+        if not lecture:
+            raise ValueError(f"[REPOSITORY]Aula {_id} não encontrado")
 
-        if lectures_result.deleted_count == 0:
-            print(
-                f"[REPOSITORY]Aviso: Nenhuma aula encontrado para {lecture['_id']}")
-            raise e
-
-        result = lectures.delete_one(
-            {"_id": ObjectId(_id)}
-        )
+        result = lectures.delete_one({"_id": objectId})
 
         if result.deleted_count == 0:
-            raise ValueError(
-                f"Nenhum usuário encontrado com o id {_id}")
-
-        return {"message": "[REPOSITORY]Usuário removido com sucesso"}
+            raise ValueError(f"[REPOSITORY]Erro ao remover aula {_id}")
+        return {"message": "[REPOSITORY]Aula removida com sucesso"}
     except Exception as e:
-        print("[REPOSITORY]Erro ao remover lecture:", e)
+        print("[REPOSITORY]Erro ao remover aula:", e)
         raise e
