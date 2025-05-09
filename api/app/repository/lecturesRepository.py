@@ -18,10 +18,16 @@ def findAllLectures():
     except Exception as e:
         print("[REPOSITORY]Erro ao buscar aulas:", e)
         raise e
-    
+
+
 def findOneLecture(_id):
     try:
-        return lectures.find_one({"_id": _id})
+        objectId = ObjectId(_id)
+        lecture_data = lectures.find_one({"_id": objectId})
+        if not lecture_data:
+            return None
+
+        return Lecture.from_dict(lecture_data).to_dict()
     except Exception as e:
         print(f"[REPOSITORY]Erro ao buscar aula:", e)
         raise e
@@ -60,13 +66,13 @@ def updateLecture(_id: ObjectId, updatedLecture: dict):
 
 def deleteLecture(_id: ObjectId):
     try:
-        lecture = findOneLecture(_id=_id)
+        lecture = findOneLecture(_id)
 
-        lectures_result = lectures.delete_one({"id": lecture["_id"]})
+        lectures_result = lectures.delete_one({"_id": lecture["_id"]})
 
         if lectures_result.deleted_count == 0:
             print(
-                f"[REPOSITORY]Aviso: Nenhum lectures encontrado para {lecture['_id']}")
+                f"[REPOSITORY]Aviso: Nenhuma aula encontrado para {lecture['_id']}")
             raise e
 
         result = lectures.delete_one(
