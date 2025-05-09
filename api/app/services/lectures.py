@@ -13,7 +13,7 @@ def createLecture(data):
     try:
         return lectures.createLecture(data)
     except Exception as e:
-        print("[SERVICE]Error creating user:", e)
+        print("[SERVICE]Error creating lecture:", e)
         raise e
 
 

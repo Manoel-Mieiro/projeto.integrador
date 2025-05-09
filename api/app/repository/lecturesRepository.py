@@ -27,7 +27,7 @@ def createLecture(data: Lecture):
         data._id = result.inserted_id
 
         if not data._id:
-            raise Exception("Erro ao inserir usuário no banco.")
+            raise Exception("Erro ao inserir aula no banco.")
 
         login.insert_one(
             {
