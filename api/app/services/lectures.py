@@ -1,9 +1,9 @@
 import app.repository.lecturesRepository as lectures
 
 
-def findAllLecutres():
+def findAllLectures():
     try:
-        return lectures.findAllLecutres()
+        return lectures.findAllLectures()
     except Exception as e:
         print("[SERVICE]Error fetching lectures:", e)
         raise e
