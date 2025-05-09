@@ -33,8 +33,8 @@ def createLecture(data: Lecture):
             {
                 "subject": data._subject,
                 "date_lecture": data._dateLecture,
-                "periodStart": data._periodStart,
-                "periodEnd": data._periodEnd,
+                "period_start": data._periodStart,
+                "period_end": data._periodEnd,
                 "teacher": data._teacher
 
             }
