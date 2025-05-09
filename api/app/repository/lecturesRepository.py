@@ -1,7 +1,7 @@
 from bson import ObjectId
 from db import lecturesCollection as lectures
 from app.models.lecture import Lecture
-from db import loginCollection as login
+from db import lecturesCollection as lectures
 
 
 def findAllLectures():
@@ -18,44 +18,27 @@ def findAllLectures():
     except Exception as e:
         print("[REPOSITORY]Erro ao buscar aulas:", e)
         raise e
+    
+def findOneLecture(_id):
+    try:
+        return lectures.find_one({"_id": _id})
+    except Exception as e:
+        print(f"[REPOSITORY]Erro ao buscar aula:", e)
+        raise e
 
 
 def createLecture(data: Lecture):
     try:
-        print("\n[REPOSITORY]Criando aula:", data, "\n")
+        print("\n[REPOSITORY]Criando aula:", data.to_dict(), "\n")
         result = lectures.insert_one(data.to_dict())
         data._id = result.inserted_id
 
         if not data._id:
             raise Exception("Erro ao inserir aula no banco.")
 
-        login.insert_one(
-            {
-                "subject": data._subject,
-                "date_lecture": data._dateLecture,
-                "period_start": data._periodStart,
-                "period_end": data._periodEnd,
-                "teacher": data._teacher
-
-            }
-        )
         return data.to_dict()
     except Exception as e:
         print("[REPOSITORY]Erro ao criar lecture:", e)
-        raise e
-
-
-def findOneLecture(_id):
-    try:
-        lecture_data = lectures.find_one(
-            {"_id": _id}
-        )
-        if not lecture_data:
-            return None
-
-        return Lecture.from_dict(lecture_data).to_dict()
-    except Exception as e:
-        print("[REPOSITORY]Erro ao buscar lecture:", e)
         raise e
 
 
@@ -79,11 +62,11 @@ def deleteLecture(_id: ObjectId):
     try:
         lecture = findOneLecture(_id=_id)
 
-        login_result = login.delete_one({"id": lecture["_id"]})
+        lectures_result = lectures.delete_one({"id": lecture["_id"]})
 
-        if login_result.deleted_count == 0:
+        if lectures_result.deleted_count == 0:
             print(
-                f"[REPOSITORY]Aviso: Nenhum login encontrado para {lecture['_id']}")
+                f"[REPOSITORY]Aviso: Nenhum lectures encontrado para {lecture['_id']}")
             raise e
 
         result = lectures.delete_one(

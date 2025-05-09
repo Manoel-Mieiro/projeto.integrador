@@ -1,4 +1,5 @@
 import app.services.lectures as lectureService
+from app.dto.lectures import LectureDTO
 
 
 def findAllLectures():
@@ -11,7 +12,14 @@ def findAllLectures():
 
 def createLecture(data):
     try:
-        return lectureService.createLecture(data)
+        lec = LectureDTO(
+            subject=data["subject"],
+            date_lecture=data["date_lecture"],
+            period_start=data["period_start"],
+            period_end=data["period_end"],
+            teacher=data["teacher"],
+        )
+        return lectureService.createLecture(lec.to_standard())
     except Exception as e:
         print("[CONTROLLER]Error creating lecture:", e)
         raise e

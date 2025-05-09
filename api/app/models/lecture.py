@@ -3,11 +3,11 @@ from bson import ObjectId
 
 class Lecture():
     def __init__(self, subject: str, date_lecture, period_start: str, period_end: str, teacher: str, _id: ObjectId = None):
-        self._id = _id,
-        self._subject = subject,
+        self._id = _id
+        self._subject = subject
         self._dateLecture = date_lecture
-        self._periodStart = period_start,
-        self._periodEnd = period_end,
+        self._periodStart = period_start
+        self._periodEnd = period_end
         self._teacher = teacher
 
     def to_dict(self):
