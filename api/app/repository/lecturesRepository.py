@@ -79,11 +79,11 @@ def deleteLecture(_id: ObjectId):
     try:
         lecture = findOneLecture(_id=_id)
 
-        login_result = login.delete_one({"email": lecture["email"]})
+        login_result = login.delete_one({"id": lecture["_id"]})
 
         if login_result.deleted_count == 0:
             print(
-                f"[REPOSITORY]Aviso: Nenhum login encontrado para {lecture['email']}")
+                f"[REPOSITORY]Aviso: Nenhum login encontrado para {lecture['_id']}")
             raise e
 
         result = lectures.delete_one(
