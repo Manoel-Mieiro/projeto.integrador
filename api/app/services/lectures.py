@@ -11,15 +11,16 @@ def findAllLectures():
 
 def createLecture(data):
     try:
+        data
         return lectures.createLecture(data)
     except Exception as e:
         print("[SERVICE]Error creating user:", e)
         raise e
 
 
-def findOneLecture(email):
+def findOneLecture(_id):
     try:
-        return lectures.findOneLecture(email)
+        return lectures.findOneLecture(_id)
     except Exception as e:
         print("[SERVICE]Error fetching lecture:", e)
         raise e
