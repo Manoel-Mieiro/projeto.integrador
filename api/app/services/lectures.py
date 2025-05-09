@@ -11,7 +11,6 @@ def findAllLectures():
 
 def createLecture(data):
     try:
-        data
         return lectures.createLecture(data)
     except Exception as e:
         print("[SERVICE]Error creating user:", e)
