@@ -1,13 +1,12 @@
-chrome.storage.session.get(["state"], (result) => {
-    if (result.state === "logged") {
-      window.location.href = "popup.html";
+chrome.storage.session.get(["state", "role"], (result) => {
+  if (result.state === "logged") {
+    if (result.role === "student") window.location.href = "popup.html";
+    else window.location.href = "lecture.html";
+  } else {
+    if (result.state === "register") {
+      window.location.href = "register.html";
     } else {
-      if(result.state === "register") {
-        window.location.href = "register.html";
-      }
-      else{
-        window.location.href = "form.html";  
-      }
+      window.location.href = "form.html";
     }
-  });
-  
+  }
+});
