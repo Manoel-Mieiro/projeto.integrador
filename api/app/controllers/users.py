@@ -24,9 +24,7 @@ def createUser(data):
 
 def findOneUser(email):
     try:
-        fetched = userService.findOneUser(email)
-        if not fetched: raise Exception(f"Usuário {email} não encontrado")
-        return fetched
+        return userService.findOneUser(email)
     except Exception as e:
         print("[CONTROLLER]Error fetching user:", e)
         raise e
