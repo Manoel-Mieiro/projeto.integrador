@@ -8,13 +8,14 @@ MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("MONGO_DB")
 COLLECTION = os.getenv("MONGO_COLLECTION")
 
-collections = [COLLECTION, "users", "login"]
+collections = [COLLECTION, "users", "login", "lectures"]
 
 client = MongoClient(MONGO_URI)
 database = client[DATABASE_NAME]
 collection = database[collections[0]]
 usersCollection = database[collections[1]]
 loginCollection = database[collections[2]]
+lecturesCollection = database[collections[3]]
 
 
 def showMongo():
