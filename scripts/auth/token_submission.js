@@ -8,11 +8,6 @@ export function submitToken(component, document) {
     const email = await getFromStorage("user");
     const token = document.getElementById("tokenValue").value;
 
-    chrome.runtime.sendMessage({
-      type: "console",
-      message: `[TOKEN SUBMISSION] Token recebido é: ${token}`,
-    });
-
     try {
       const response = await api.callAPI(
         "GET",
