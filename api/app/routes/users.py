@@ -25,7 +25,10 @@ def createUser():
 @users_bp.route("/users/<email>", methods=["GET"])
 def findOneUser(email):
     try:
-        return jsonify(userController.findOneUser(email))
+        user = userController.findOneUser(email)
+        if user is None:
+            return jsonify(None), 204
+        return jsonify(user), 200
     except Exception as e:
         return jsonify({"[ROUTES]error": str(e)}), 500
 
