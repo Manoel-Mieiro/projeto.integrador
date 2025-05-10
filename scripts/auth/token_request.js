@@ -23,7 +23,6 @@ export async function triggerTokenRequest(document, components) {
 
         chrome.storage.session.set({
           user: email,
-          token: response.newToken,
           hasToken: true,
         });
       } else {
