@@ -27,8 +27,8 @@ def findOneUser(email):
     try:
         user = userController.findOneUser(email)
         if user is None:
-            return jsonify(None), 204
-        return jsonify(user), 200
+            return jsonify({"error": f"{email} não encontrado"}), 404
+
     except Exception as e:
         return jsonify({"[ROUTES]error": str(e)}), 500
 
