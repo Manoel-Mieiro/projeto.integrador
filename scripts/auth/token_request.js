@@ -11,7 +11,7 @@ export async function triggerTokenRequest(document, components) {
       const user = await fetchUser(email);
       chrome.runtime.sendMessage({ type: "console", message: user });
 
-      if (user) {
+      if (user && user.email) {
         const response = await api.callAPI(
           "PATCH",
           `${CONFIG.API_BASE_URL}${CONFIG.LOGIN_ENDPOINT}`,
@@ -30,9 +30,9 @@ export async function triggerTokenRequest(document, components) {
           alert(`"Ocorreu um erro no servidor"`);
         }
       } else {
-        alert(`${user.email} não está cadastrado`);
+        alert(`${email} não está cadastrado`);
         chrome.storage.session.set({ state: "register" });
-        window.location.href("redirect.html");
+        window.location.href = "redirect.html";
       }
     } catch (error) {
       alert(`Erro de conexão com o servidor: ${error}`);
