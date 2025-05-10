@@ -22,26 +22,29 @@ def createUser():
         return jsonify({"[ROUTES]error": str(e)}), 500
 
 
-@users_bp.route("/users/<user_id>", methods=["GET"])
-def findOneUser(user_id):
+@users_bp.route("/users/<email>", methods=["GET"])
+def findOneUser(email):
     try:
-        return jsonify(userController.findOneUser(user_id))
+        user = userController.findOneUser(email)
+        if user is None:
+            return jsonify({"error": f"{email} não encontrado"}), 404
+
     except Exception as e:
         return jsonify({"[ROUTES]error": str(e)}), 500
 
 
-@users_bp.route("/users/<user_id>", methods=["PUT"])
-def updateUser(user_id):
+@users_bp.route("/users/<email>", methods=["PUT"])
+def updateUser(email):
     try:
         data = request.get_json()
-        return jsonify(userController.updateUser(user_id, data))
+        return jsonify(userController.updateUser(email, data))
     except Exception as e:
         return jsonify({"[ROUTES]error": str(e)}), 500
 
 
-@users_bp.route("/users/<user_id>", methods=["DELETE"])
-def deleleteUser(user_id):
+@users_bp.route("/users/<email>", methods=["DELETE"])
+def deleleteUser(email):
     try:
-        return jsonify(userController.deleteUser(user_id))
+        return jsonify(userController.deleteUser(email))
     except Exception as e:
         return jsonify({"[ROUTES]error": str(e)}), 500
