@@ -1,7 +1,7 @@
 import api from "../api.js";
 import { CONFIG } from "../config.js";
 import { getFormData } from "./fields.js";
-import { handleView, triggerViewHandling } from "./handle.view.js";
+import { triggerViewHandling } from "./handle.view.js";
 import { fillWithTitle } from "./lecture_title.js";
 
 export async function submitLecture(component) {
@@ -17,12 +17,7 @@ export async function submitLecture(component) {
         `${CONFIG.API_BASE_URL}${CONFIG.LECTURES_ENDPOINT}`,
         lecture
       );
-      fillWithTitle(response, lectureField);
-      chrome.runtime.sendMessage({
-        type: "console",
-        message: `Passei fillWithTitle`,
-      });
-      handleView();
+      fillWithTitle(lecture, lectureField);
       triggerViewHandling(backBtn);
     } catch (error) {
       chrome.runtime.sendMessage({
