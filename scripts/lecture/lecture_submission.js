@@ -2,7 +2,7 @@ import api from "../api.js";
 import { CONFIG } from "../config.js";
 import { getFormData } from "./fields.js";
 
-export function submitLecture(component) {
+export async function submitLecture(component) {
   component.addEventListener("submit", async (event) => {
     event.preventDefault();
     const lecture = getFormData();
@@ -10,7 +10,7 @@ export function submitLecture(component) {
     try {
       const response = await api.callAPI(
         "POST",
-        `${CONFIG.API_BASE_URL}${CONFIG.LECTURES}`,
+        `${CONFIG.API_BASE_URL}${CONFIG.LECTURES_ENDPOINT}`,
         lecture
       );
 

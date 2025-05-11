@@ -10,3 +10,4 @@ document.addEventListener("DOMContentLoaded", () => {
   // é um listener que aguarda o clique para efetuar o logout
   submitLecture(form);
 });
+
