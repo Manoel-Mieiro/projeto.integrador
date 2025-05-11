@@ -70,6 +70,10 @@ body {
   margin: 8px auto;
 }
 
+.form_body{
+  padding: 20px;
+}
+
 .form_body,
 .register_form,
 .form_login_main,
