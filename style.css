@@ -74,6 +74,11 @@ body {
   padding: 20px;
 }
 
+.form_footer{
+  display: flex;
+  justify-content: center;
+}
+
 .form_body,
 .register_form,
 .form_login_main,
