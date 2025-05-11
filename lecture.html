@@ -7,30 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aula</title>
   </head>
-  <body>
+  <body class="form_body">
     <main class="form_main">
       <div class="form_header">
         <h1>CRIAR AULA</h1>
       </div>
 
-      <form class="forms" id="form_lecture">
-        <label for="subject">DISCIPLINA</label>
-        <input type="text" id="subject" name="subject" /><br /><br />
-        <label for="date_lecture">DATA</label>
-        <input type="date" name="date" id="date_lecture" /><br /><br />
-        <label for="period_start">INÍCIO</label>
-        <input type="time" name="period_start" id="period_start" /><br /><br />
-        <label for="period_end">FIM</label>
-        <input type="time" name="period_end" id="period_end" /><br /><br />
-        <label for="teacher">DOCENTE</label>
-        <input
-          type="email"
-          name="teacher"
-          id="teacher"
-          readonly
-          value="prof"
-        /><br /><br />
-      </form>
+      <div class="form-container">
+        <form class="forms" id="form_lecture">
+          <label for="subject">DISCIPLINA</label>
+          <input type="text" id="subject" name="subject" /><br /><br />
+          <label for="date_lecture">DATA</label>
+          <input type="date" name="date" id="date_lecture" /><br /><br />
+          <label for="period_start">INÍCIO</label>
+          <input
+            type="time"
+            name="period_start"
+            id="period_start"
+          /><br /><br />
+          <label for="period_end">FIM</label>
+          <input type="time" name="period_end" id="period_end" /><br /><br />
+          <label for="teacher">DOCENTE</label>
+          <input
+            type="email"
+            name="teacher"
+            id="teacher"
+            readonly
+            value="prof"
+          /><br /><br />
+        </form>
+      </div>
     </main>
   </body>
 </html>

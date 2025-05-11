@@ -70,6 +70,7 @@ body {
   margin: 8px auto;
 }
 
+.form_body,
 .register_form,
 .form_login_main,
 .register_form h1 {
@@ -77,6 +78,7 @@ body {
   color: var(--espeon-blue);
 }
 
+.form_body h1,
 .form_login_main h1,
 .register_form h1 {
   text-align: center;
@@ -95,6 +97,15 @@ body {
   background-color: var(--espeon-purple-light);
   padding: 10px;
   border-radius: 5px;
+}
+
+#form_lecture{
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#form_lecture label{
+  font-size: 16px;
 }
 
 #espeon_image {
