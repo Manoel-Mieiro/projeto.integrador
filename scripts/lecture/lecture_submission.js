@@ -1,11 +1,15 @@
 import api from "../api.js";
 import { CONFIG } from "../config.js";
 import { getFormData } from "./fields.js";
+import { handleView, triggerViewHandling } from "./handle.view.js";
+import { fillWithTitle } from "./lecture_title.js";
 
 export async function submitLecture(component) {
   component.addEventListener("submit", async (event) => {
     event.preventDefault();
     const lecture = getFormData();
+    const lectureField = document.getElementById("lecture_content");
+    const backBtn = document.getElementById("back_lecture");
 
     try {
       const response = await api.callAPI(
@@ -13,11 +17,13 @@ export async function submitLecture(component) {
         `${CONFIG.API_BASE_URL}${CONFIG.LECTURES_ENDPOINT}`,
         lecture
       );
-
+      fillWithTitle(response, lectureField);
       chrome.runtime.sendMessage({
         type: "console",
-        message: `RESPONSE DA API: ${response}`,
+        message: `Passei fillWithTitle`,
       });
+      handleView();
+      triggerViewHandling(backBtn);
     } catch (error) {
       chrome.runtime.sendMessage({
         type: "console",
