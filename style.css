@@ -70,11 +70,20 @@ body {
   margin: 8px auto;
 }
 
-#register_form,
-#form_login_main,
-#register_form h1 {
+.register_form,
+.form_login_main,
+.register_form h1 {
   margin: 10px;
   color: var(--espeon-blue);
+}
+
+.form_login_main h1,
+.register_form h1 {
+  text-align: center;
+}
+
+.form_login_main h1 {
+  color: var(--espeon-purple-light);
 }
 
 #form_login_header {
@@ -88,21 +97,12 @@ body {
   border-radius: 5px;
 }
 
-#form_login_main h1,
-#register_form h1 {
-  text-align: center;
-}
-
-#form_login_main h1 {
-  color: var(--espeon-purple-light);
-}
-
 #espeon_image {
   display: flex;
   align-self: center;
 }
 
-#exit{
+#exit {
   color: var(--espeon-red);
   font-weight: bold;
   margin: 10px;
