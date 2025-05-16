@@ -23,7 +23,7 @@ export function triggerViewHandling(button) {
   });
 }
 
-export function restoreView(content) {
+export function restoreView() {
   const copyCard = document.getElementById("lecture_title");
   const lectureCard = document.getElementById("form_lecture");
   const copyBtn = document.getElementById("copy");
@@ -35,7 +35,7 @@ export function restoreView(content) {
       });
       lectureCard.style.display = "none";
       copyCard.style.display = "block";
-      triggerCopy(copyBtn, content);
+      triggerCopy(copyBtn, document.getElementById("lecture_content"));
     } else {
       chrome.runtime.sendMessage({
         type: "console",

@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       lectureField = document.getElementById("lecture_content");
       backBtn = document.getElementById("back_lecture");
 
-      restoreView(clipboardData);
+      restoreView();
       fillWithTitle(clipboardData, lectureField);
       triggerViewHandling(backBtn);
 
