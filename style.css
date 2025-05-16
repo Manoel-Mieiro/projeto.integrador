@@ -70,11 +70,44 @@ body {
   margin: 8px auto;
 }
 
-#register_form,
-#form_login_main,
-#register_form h1 {
+.form_body {
+  padding: 20px;
+}
+
+.form_footer {
+  display: flex;
+  justify-content: center;
+}
+
+.form_body,
+.register_form,
+.form_login_main,
+.register_form h1 {
   margin: 10px;
   color: var(--espeon-blue);
+}
+
+.form_body h1,
+.form_login_main h1,
+.register_form h1 {
+  text-align: center;
+}
+
+.clipboard_container {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.clipboard_text {
+  background-color: white;
+  padding: 10px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.form_login_main h1 {
+  color: var(--espeon-purple-light);
 }
 
 #form_login_header {
@@ -88,13 +121,13 @@ body {
   border-radius: 5px;
 }
 
-#form_login_main h1,
-#register_form h1 {
-  text-align: center;
+#form_lecture {
+  padding: 10px;
+  border-radius: 5px;
 }
 
-#form_login_main h1 {
-  color: var(--espeon-purple-light);
+#form_lecture label {
+  font-size: 16px;
 }
 
 #espeon_image {
@@ -102,8 +135,39 @@ body {
   align-self: center;
 }
 
-#exit{
+#exit {
   color: var(--espeon-red);
   font-weight: bold;
   margin: 10px;
+}
+
+#lecture_title {
+  margin-top: 10px;
+}
+
+#lecture_content {
+  color: var(--espeon-blue);
+}
+
+#back_lecture {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  background-color: var(--espeon-blue);
+  color: var(--espeon-red);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#copy {
+  background-color: var(--espeon-blue);
+  border-right: 1px;
+  color: var(--espeon-purple-light);
+  text-transform: uppercase;
+  font-weight: bolder;
+  padding: 10px;
+  border: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
