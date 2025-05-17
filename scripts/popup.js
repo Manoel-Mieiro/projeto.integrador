@@ -21,7 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const isRecording = btn.id !== "start";
 
-    await chrome.storage.session.set({ recording: isRecording });
+    await chrome.storage.session.set({
+      recording: isRecording,
+      lectureLink: document.getElementById("lecture_link").value,
+    });
 
     if (!isRecording) {
       await record.stopRecording();

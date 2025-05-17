@@ -39,7 +39,10 @@ async function stopRecording() {
 async function recordTabs() {
   let [tab] = await getTab();
 
-  const payload = buildPayload(tab, teamsURL);
+  const storageData = await chrome.storage.session.get(["lectureLink"]);
+  const lecture = storageData.lectureLink;
+
+  const payload = buildPayload(tab, lecture);
 
   chrome.runtime.sendMessage({
     type: "tabData",
