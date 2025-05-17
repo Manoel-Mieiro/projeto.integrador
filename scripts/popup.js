@@ -10,7 +10,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  await chrome.storage.session.set({ recording: false });
+  const hasState = await chrome.storage.session.get(["recording"]);
+  if (hasState.recording === undefined) {
+    await chrome.storage.session.set({ recording: false });
+  }
+
+  // atualiza view do botão no reload
+  await button.updateButton(btn);
 
   btn.addEventListener("click", async () => {
     const state = await chrome.storage.session.get(["recording"]);
