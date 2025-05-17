@@ -1,15 +1,9 @@
-function updateButton(btn) {
-  let newId = btn.id === "start" ? "stop" : "start";
+async function updateButton(btn) {
+  const state = await chrome.storage.session.get(["recording"]);
+  const isRecording = state.recording === true;
 
-  chrome.runtime.sendMessage({
-    type: "console",
-    message: `Change button from ${btn.id} to ${newId}`,
-  });
-
-  btn.id = newId;
-  btn.textContent = newId === "start" ? "START" : "STOP";
-
-  localStorage.setItem("buttonId", newId); 
+  btn.id = isRecording ? "stop" : "start";
+  btn.textContent = isRecording ? "PARAR" : "ENTRAR";
 }
 
 export default { updateButton };
