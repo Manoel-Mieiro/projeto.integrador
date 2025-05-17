@@ -1,8 +1,6 @@
 import api from "./api.js";
 import trace from "./trace.js";
 
-const teamsURL = "https://teams.microsoft.com/v2/";
-
 let isStopping = false;
 
 function retrieveUser() {
