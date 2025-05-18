@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (isRecording) {
       await record.stopRecording();
     } else {
-      await record.recordTabs();
+      await record.startLecture();
     }
   });
 
