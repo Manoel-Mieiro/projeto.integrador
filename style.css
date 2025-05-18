@@ -65,6 +65,7 @@ body {
   font-size: 1em;
 }
 
+
 .btns,
 .underline_btn {
   display: flex;
@@ -76,9 +77,14 @@ body {
   padding: 20px;
 }
 
+.form_header,
 .form_footer {
   display: flex;
   justify-content: center;
+}
+
+.form_header{
+  flex-direction: column;
 }
 
 .form_body,
@@ -146,6 +152,11 @@ body {
   background-color: var(--espeon-purple-light);
   padding: 10px;
   border-radius: 5px;
+}
+
+#form_login label{
+  font-size: 20px;
+  letter-spacing: 2px;
 }
 
 #form_lecture {
