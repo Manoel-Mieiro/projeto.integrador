@@ -1,7 +1,7 @@
 import api from "./api.js";
 import record from "./record.js";
 import { CONFIG } from "./config.js";
-import fetchPermissions from "./permissions/tab_permissions.js";
+import fetchPermissions from "./media/tab_permissions.js";
 
 async function shouldRecord() {
   const { recording } = await chrome.storage.session.get("recording");
