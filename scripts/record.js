@@ -1,4 +1,5 @@
 import api from "./api.js";
+import fetchPermissions from "./permissions/tab_permissions.js";
 import trace from "./trace.js";
 
 let isStopping = false;
@@ -34,6 +35,8 @@ async function recordTabs() {
   const lecture = storageData.lectureLink;
   const user = await retrieveUser();
   const payload = buildPayload(tab, lecture, "start", user);
+
+  await fetchPermissions(tab.id);
 
   chrome.runtime.sendMessage({
     type: "tabData",
