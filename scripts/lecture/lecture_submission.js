@@ -1,5 +1,6 @@
 import api from "../api.js";
 import { CONFIG } from "../config.js";
+import { initClipboardCopyListener } from "./clipboard.js";
 import { getFormData } from "./fields.js";
 import { handleView, restoreView, triggerViewHandling } from "./handle.view.js";
 import { fillWithTitle } from "./lecture_title.js";
@@ -36,6 +37,7 @@ export async function submitLecture(component) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  initClipboardCopyListener();
   chrome.storage.session.get(["lecture"], (result) => {
     if (result.lecture) {
       clipboardData = result.lecture;

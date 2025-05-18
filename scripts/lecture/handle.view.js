@@ -1,5 +1,3 @@
-import { triggerCopy } from "./clipboard.js";
-
 export function handleView(content) {
   const copyCard = document.getElementById("lecture_title");
   const lectureCard = document.getElementById("form_lecture");
@@ -8,8 +6,6 @@ export function handleView(content) {
     lectureCard.style.display = "none";
     copyCard.style.display = "block";
     chrome.storage.session.set({ lectureView: "copy" });
-
-    triggerCopy(copyBtn, content);
   } else if (lectureCard.style.display === "none") {
     lectureCard.style.display = "block";
     copyCard.style.display = "none";
@@ -35,7 +31,6 @@ export function restoreView() {
       });
       lectureCard.style.display = "none";
       copyCard.style.display = "block";
-      triggerCopy(copyBtn, document.getElementById("lecture_content"));
     } else {
       chrome.runtime.sendMessage({
         type: "console",
