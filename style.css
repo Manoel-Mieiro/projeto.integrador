@@ -65,7 +65,6 @@ body {
   font-size: 1em;
 }
 
-
 .btns,
 .underline_btn {
   display: flex;
@@ -77,13 +76,14 @@ body {
   padding: 20px;
 }
 
-.form_header,
 .form_footer {
   display: flex;
   justify-content: center;
 }
 
-.form_header{
+.form_header {
+  display: flex;
+  justify-content: center;
   flex-direction: column;
 }
 
@@ -131,7 +131,7 @@ body {
   margin: 10px;
 }
 
-.description button{
+.description button {
   width: 40%;
 }
 
@@ -154,7 +154,7 @@ body {
   border-radius: 5px;
 }
 
-#form_login label{
+#form_login label {
   font-size: 20px;
   letter-spacing: 2px;
 }
@@ -220,7 +220,7 @@ body {
 }
 
 #stop {
-  background-color: var(--espeon-blue );
+  background-color: var(--espeon-blue);
   color: white;
   font-weight: bold;
   padding: 10px;
