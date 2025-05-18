@@ -3,13 +3,13 @@ import trace from "./trace.js";
 
 let isStopping = false;
 
-function retrieveUser() {
+async function retrieveUser() {
   return new Promise((resolve, reject) => {
-    chrome.storage.session.get(["student"], (result) => {
+    chrome.storage.session.get(["user"], (result) => {
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError);
       } else {
-        resolve(result.student);
+        resolve(result.user);
       }
     });
   });
@@ -32,8 +32,8 @@ async function recordTabs() {
 
   const storageData = await chrome.storage.session.get(["lectureLink"]);
   const lecture = storageData.lectureLink;
-
-  const payload = buildPayload(tab, lecture);
+  const user = await retrieveUser();
+  const payload = buildPayload(tab, lecture, "start", user);
 
   chrome.runtime.sendMessage({
     type: "tabData",
@@ -47,16 +47,20 @@ async function getTab() {
   return await chrome.tabs.query({ active: true, lastFocusedWindow: true });
 }
 
-function buildPayload(tab, target, eventType) {
+function buildPayload(tab, target, eventType, user) {
   return {
-    url: tab.url,
     onlineClass: target,
+    user: user,
+    url: tab.url,
     title: tab.title,
     muted: tab.mutedInfo.muted,
+    cameraEnabled: false,
+    microphoneEnabled: false,
+    cameraStreaming: false,
+    microphoneStreaming: false,
     lastAccessed: tab.lastAccessed,
     timestamp: Date.now(),
     event: eventType,
-    message: trace.buildLogMessage(tab.url, target),
   };
 }
 
