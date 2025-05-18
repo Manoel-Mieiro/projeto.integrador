@@ -11,7 +11,7 @@ class Traces:
         muted: bool,
         cameraEnabled: bool,
         microphoneEnabled: bool,
-        camereaStreaming: bool,
+        cameraStreaming: bool,
         microphoneStreaming: bool,
         lastAccessed: str,
         timestamp: str,
@@ -26,7 +26,7 @@ class Traces:
         self.muted = muted
         self.cameraEnabled = cameraEnabled
         self.microphoneEnabled = microphoneEnabled
-        self.camereaStreaming = camereaStreaming
+        self.cameraStreaming = cameraStreaming
         self.microphoneStreaming = microphoneStreaming
         self.lastAccessed = lastAccessed
         self.timestamp = timestamp
@@ -41,7 +41,7 @@ class Traces:
             "muted": self.muted,
             "cameraEnabled": self.cameraEnabled,
             "microphoneEnabled": self.microphoneEnabled,
-            "camereaStreaming": self.camereaStreaming,
+            "cameraStreaming": self.cameraStreaming,
             "microphoneStreaming": self.microphoneStreaming,
             "lastAccessed": self.lastAccessed,
             "timestamp": self.timestamp,
@@ -50,3 +50,21 @@ class Traces:
         if self._id:
             data["_id"] = str(self._id)
         return data
+
+    @staticmethod
+    def from_dict(data):
+        return Traces(
+            onlineClass=data["onlineClass"],
+            user=data["user"],
+            url=data["url"],
+            title=data["title"],
+            muted=data["muted"],
+            cameraEnabled=data["cameraEnabled"],
+            microphoneEnabled=data["microphoneEnabled"],
+            cameraStreaming=data["cameraStreaming"],
+            microphoneStreaming=data["microphoneStreaming"],
+            lastAccessed=data["lastAccessed"],
+            timestamp=data["timestamp"],
+            event=data["event"],
+            _id=data.get("_id")
+        )
