@@ -34,9 +34,9 @@ async function recordTabs() {
   const storageData = await chrome.storage.session.get(["lectureLink"]);
   const lecture = storageData.lectureLink;
   const user = await retrieveUser();
-  const payload = buildPayload(tab, lecture, "start", user);
+  const permissions = await fetchPermissions(tab.id)
 
-  await fetchPermissions(tab.id);
+  const payload = buildPayload(tab, lecture, "start", user, permissions);
 
   chrome.runtime.sendMessage({
     type: "tabData",
@@ -50,15 +50,15 @@ async function getTab() {
   return await chrome.tabs.query({ active: true, lastFocusedWindow: true });
 }
 
-function buildPayload(tab, target, eventType, user) {
+function buildPayload(tab, target, eventType, user, permissions) {
   return {
     onlineClass: target,
     user: user,
     url: tab.url,
     title: tab.title,
     muted: tab.mutedInfo.muted,
-    cameraEnabled: false,
-    microphoneEnabled: false,
+    cameraEnabled: permissions.cam,
+    microphoneEnabled: permissions.mic,
     cameraStreaming: false,
     microphoneStreaming: false,
     lastAccessed: tab.lastAccessed,

@@ -1,20 +1,26 @@
 export default async function fetchPermissions(tabId) {
-  await chrome.scripting.executeScript({
+  const [{ result }] = await chrome.scripting.executeScript({
     target: { tabId },
     func: () => {
-      navigator.permissions.query({ name: "microphone" }).then(statusMic => {
-        navigator.permissions.query({ name: "camera" }).then(statusCam => {
+      return Promise.all([
+        navigator.permissions.query({ name: "microphone" }),
+        navigator.permissions.query({ name: "camera" }),
+      ])
+        .then(([micStatus, camStatus]) => {
+          return {
+            mic: micStatus.state === "granted",
+            cam: camStatus.state === "granted",
+          };
+        })
+        .catch((err) => {
           chrome.runtime.sendMessage({
             type: "console",
-            message: `[MICROPHONE]: ${statusMic.state}\n[CAMERA]: ${statusCam.state}`,
+            message: `Erro ao consultar permissões: ${err.message}`,
           });
+          return { mic: false, cam: false };
         });
-      }).catch(err => {
-        chrome.runtime.sendMessage({
-          type: "console",
-          message: `Erro ao consultar permissões: ${err.message}`,
-        });
-      });
-    }
+    },
   });
+
+  return result;
 }

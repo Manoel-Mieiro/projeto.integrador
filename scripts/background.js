@@ -1,8 +1,7 @@
 import api from "./api.js";
 import record from "./record.js";
 import { CONFIG } from "./config.js";
-
-const lecture = "https://teams.microsoft.com/v2/";
+import fetchPermissions from "./permissions/tab_permissions.js";
 
 async function shouldRecord() {
   const { recording } = await chrome.storage.session.get("recording");
@@ -29,18 +28,17 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
   const lecture = await chrome.storage.session.get(["lectureLink"]);
   const tab = await chrome.tabs.get(activeInfo.tabId);
   const student = await record.retrieveUser();
+  const permissions = await fetchPermissions(tab.id);
 
-  if (tab.url && !tab.url.startsWith(lecture)) {
-    console.log(`[onActivated] ${student} left Microsoft Teams tab`);
+  const payload = record.buildPayload(
+    tab,
+    lecture.lectureLink,
+    "onActivated",
+    student,
+    permissions
+  );
 
-    const payload = record.buildPayload(tab, lecture.lectureLink, "onActivated", student);
-
-    api.callAPI(
-      "POST",
-      `${CONFIG.API_BASE_URL}${CONFIG.API_ENDPOINT}`,
-      payload
-    );
-  }
+  api.callAPI("POST", `${CONFIG.API_BASE_URL}${CONFIG.API_ENDPOINT}`, payload);
 });
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
@@ -49,17 +47,20 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
     const lecture = await chrome.storage.session.get(["lectureLink"]);
     const student = await record.retrieveUser();
+    const permissions = await fetchPermissions(tab.id);
 
-    if (tab.url && !tab.url.startsWith(lecture)) {
-      console.log(`[onUpdated] ${student} left Microsoft Teams tab`);
+    const payload = record.buildPayload(
+      tab,
+      lecture.lectureLink,
+      "onUpdated",
+      student,
+      permissions
+    );
 
-      const payload = record.buildPayload(tab, lecture.lectureLink, "onUpdated", student);
-
-      api.callAPI(
-        "POST",
-        `${CONFIG.API_BASE_URL}${CONFIG.API_ENDPOINT}`,
-        payload
-      );
-    }
+    api.callAPI(
+      "POST",
+      `${CONFIG.API_BASE_URL}${CONFIG.API_ENDPOINT}`,
+      payload
+    );
   }
 });
