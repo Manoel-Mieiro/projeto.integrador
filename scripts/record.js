@@ -1,5 +1,5 @@
 import api from "./api.js";
-import fetchPermissions from "./permissions/tab_permissions.js";
+import fetchPermissions from "./media/tab_permissions.js";
 import trace from "./trace.js";
 
 let isStopping = false;
@@ -28,13 +28,9 @@ async function stopRecording() {
   });
 }
 
-async function recordTabs() {
-  let [tab] = await getTab();
-
-  const storageData = await chrome.storage.session.get(["lectureLink"]);
-  const lecture = storageData.lectureLink;
+async function recordTabs(tab, lecture) {
   const user = await retrieveUser();
-  const permissions = await fetchPermissions(tab.id)
+  const permissions = await fetchPermissions(tab.id);
 
   const payload = buildPayload(tab, lecture, "start", user, permissions);
 
@@ -67,4 +63,27 @@ function buildPayload(tab, target, eventType, user, permissions) {
   };
 }
 
-export default { stopRecording, recordTabs, buildPayload, retrieveUser };
+async function startLecture() {
+  const { lectureLink } = await chrome.storage.session.get(["lectureLink"]);
+  const [tab] = await getTab();
+
+  chrome.runtime.sendMessage({
+    type: "console",
+    message: "Redirecionando para o link da reunião: " + lectureLink,
+  });
+
+  chrome.tabs.update(tab.id, { url: lectureLink });
+}
+
+function isTitleValid(title) {
+  const regex = /^\[[^\]]+\]/;
+  return regex.test(title);
+}
+
+export default {
+  stopRecording,
+  recordTabs,
+  buildPayload,
+  retrieveUser,
+  startLecture,
+};
