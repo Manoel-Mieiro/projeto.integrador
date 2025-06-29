@@ -72,6 +72,8 @@ async function startLecture(tab, lecture) {
     type: "console",
     message: "Redirecionando para o link da reunião: " + lecture,
   });
+  await chrome.storage.session.set({lectureLink: lecture})
+
 
   chrome.tabs.update(tab.id, { url: lecture });
 }
@@ -88,5 +90,5 @@ export default {
   retrieveUser,
   startLecture,
   getTab,
-  isTitleValid
+  isTitleValid,
 };
