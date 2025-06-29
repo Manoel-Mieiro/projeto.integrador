@@ -25,37 +25,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const [tab] = await record.getTab();
     const lecture = document.getElementById("lecture_link").value;
 
-    await record.startLecture(tab, lecture);
-
     if (!lecture) {
       chrome.runtime.sendMessage({
         type: "console",
         message: "ERRO: o link da reunião está vazio.",
       });
+      alert("Por favor, insira o Link da reunião");
       return;
+    } else {
+      await record.startLecture(tab, lecture);
     }
-
-    chrome.tabs.onUpdated.addListener(async (changeInfo, tab) => {
-      if (changeInfo.status === "complete") {
-        const isValid = isTitleValid(tab.title);
-
-        if (isValid) {
-          await chrome.storage.session.set({
-            recording: true,
-            lectureLink: tab.url,
-          });
-          chrome.runtime.sendMessage({
-            type: "console",
-            message: `Gravação iniciada para URL: ${tab.url}`,
-          });
-        } else {
-          chrome.runtime.sendMessage({
-            type: "console",
-            message: `Título inválido, gravação não iniciada: ${tab.title}`,
-          });
-        }
-      }
-    });
   });
 
   exit?.addEventListener("click", () => {
